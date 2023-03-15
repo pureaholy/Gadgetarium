@@ -31,4 +31,7 @@ public class Address {
 
     @Column(name = "country")
     private String country;
+
+    @OneToOne
+    private User user;
 }
