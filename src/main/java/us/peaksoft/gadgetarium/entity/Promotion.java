@@ -22,6 +22,6 @@ public class Promotion {
     private LocalDate dateOfStart;
     @Column(name = "date_of_finish")
     private LocalDate dateOfFinish;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "promotion")
     private List<Product> product;
 }
