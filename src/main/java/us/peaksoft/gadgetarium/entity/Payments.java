@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import us.peaksoft.gadgetarium.enums.PaymentMethod;
 
 import java.time.LocalDate;
 
@@ -28,4 +29,6 @@ public class Payments {
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method")
     private PaymentMethod paymentMethod;
+    @OneToOne
+    private User user;
 }

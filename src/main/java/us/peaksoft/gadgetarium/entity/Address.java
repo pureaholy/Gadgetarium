@@ -17,20 +17,20 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "city")
-    private String city;
+    @Column(name = "city_name")
+    private String cityName;
 
-    @Column(name = "street")
-    private String street;
+    @Column(name = "street_name")
+    private String streetName;
 
-    @Column(name = "state")
-    private String state;
+    @Column(name = "state_name")
+    private String stateName;
 
     @Column(name = "postal_code")
     private String postalCode;
 
-    @Column(name = "country")
-    private String country;
+    @Column(name = "country_name")
+    private String countryName;
 
     @OneToOne
     private User user;

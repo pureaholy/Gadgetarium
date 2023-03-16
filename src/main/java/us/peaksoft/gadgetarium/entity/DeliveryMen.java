@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -26,7 +28,7 @@ public class DeliveryMen {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "order_id")
-    private OrderList orderList;
+    private List<Order> orders;
 }

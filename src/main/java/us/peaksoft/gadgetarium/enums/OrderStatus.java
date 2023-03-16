@@ -1,4 +1,4 @@
-package us.peaksoft.gadgetarium.entity;
+package us.peaksoft.gadgetarium.enums;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

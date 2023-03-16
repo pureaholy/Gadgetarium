@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import us.peaksoft.gadgetarium.enums.Brand;
+import us.peaksoft.gadgetarium.enums.Color;
+import us.peaksoft.gadgetarium.enums.OS;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,6 +40,7 @@ public class Product {
     private String image;
     private String displayInch;
     private String appointment;
+    @Column(name = "capacity_battery")
     private String capacityBattery;
     @ManyToOne
     @JoinColumn(name = "category_id")

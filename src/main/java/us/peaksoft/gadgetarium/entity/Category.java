@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import us.peaksoft.gadgetarium.enums.Subcat;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,5 +22,7 @@ public class Category {
 
     @Enumerated(EnumType.STRING)
     private Subcat subcat;
+    @ManyToOne
+    private Product product;
 
 }

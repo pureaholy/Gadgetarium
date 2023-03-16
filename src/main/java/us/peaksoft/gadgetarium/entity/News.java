@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,8 +19,10 @@ public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+     @Column(name = "date_of_start")
     private LocalDate dateOfStart;
-
+     @Column(name = "date_of_finish")
     private LocalDate dateOfFinish;
+    @OneToMany
+    private List<Product> products;
 }

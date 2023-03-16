@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,10 +19,12 @@ public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "date_of_start")
     private LocalDate dateOfStart;
-
+     @Column(name = "date_of_finish")
     private LocalDate dateOfFinish;
 
     private int percent;
+    @OneToMany
+    private List<Product> products;
 }

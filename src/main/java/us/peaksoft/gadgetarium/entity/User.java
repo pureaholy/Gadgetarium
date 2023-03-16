@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import us.peaksoft.gadgetarium.enums.Role;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -52,4 +55,6 @@ public class User {
     @OneToOne
     @JoinColumn(name = "payments_id")
     private Payments payments;
+    @OneToMany
+    private List<Order> orders;
 }

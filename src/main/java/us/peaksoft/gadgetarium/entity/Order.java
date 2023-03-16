@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import us.peaksoft.gadgetarium.enums.OrderStatus;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,13 +19,13 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private byte countOfProducts;
-
+    @Column(name = "count_of_product")
+    private Short countOfProducts;
+     @Column(name = "total_sum")
     private Float totalSum;
 
     private String shipping;
-
+     @Column(name = "type_payment")
     private String typePayment;
 
     @Enumerated(EnumType.STRING)
@@ -35,4 +38,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    private DeliveryMen deliveryMan;
 }
