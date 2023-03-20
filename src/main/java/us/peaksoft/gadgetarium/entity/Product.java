@@ -9,6 +9,8 @@ import us.peaksoft.gadgetarium.enums.Brand;
 import us.peaksoft.gadgetarium.enums.Color;
 import us.peaksoft.gadgetarium.enums.OS;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -42,9 +44,8 @@ public class Product {
     private String appointment;
     @Column(name = "capacity_battery")
     private String capacityBattery;
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
+    private List<Category> category;
 
     @ManyToOne
     @JoinColumn(name = "basket_id")
