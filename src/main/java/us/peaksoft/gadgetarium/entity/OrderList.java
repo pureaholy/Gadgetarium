@@ -20,7 +20,6 @@ public class OrderList {
     private Long id;
     @OneToMany
     private List<Product> products;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "orderList")
     private User user;
 }

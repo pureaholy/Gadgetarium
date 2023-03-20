@@ -25,6 +25,6 @@ public class Discount {
     private LocalDate dateOfFinish;
 
     private int percent;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "discount")
     private List<Product> products;
 }

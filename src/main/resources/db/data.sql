@@ -1,0 +1,3 @@
+-- INSERT INTO users(first_name, last_name,email, password,role,address_id, basket_id,
+--                   chosen_id,order_list_id, payments_id )
+-- VALUES ('Dilnaz','Tolubayeva','dilnaz@mail.ru','dili', 'ADMIN',1,1,1,1,1)
