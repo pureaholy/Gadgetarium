@@ -24,7 +24,4 @@ public class Promotion {
     private LocalDate dateOfFinish;
     @OneToMany
     private List<Product> product;
-
-
-
 }
