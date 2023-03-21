@@ -47,8 +47,15 @@ INSERT INTO users(id, email, first_name, last_name,
                   password, role,
                   address_id, basket_id,
                   chosen_id, order_list_id, payments_id)
-VALUES (1,'dilnaz@mail.ru','Dilnaz','Tolubayeva',
-        'dili','USER',1,1,1,1,1);
+VALUES (1,'user@mail.ru','User','Userov',
+        'user','USER',1,1,1,1,1);
+
+INSERT INTO users(id, email, first_name, last_name,
+                  password, role,
+                  address_id, basket_id,
+                  chosen_id, order_list_id, payments_id)
+VALUES (2,'admin@mail.ru','Admin','Adminov',
+        'admin','ADMIN',1,1,1,1,1);
 
 INSERT INTO orders(id, count_of_product, order_status,
                    shipping, total_sum,

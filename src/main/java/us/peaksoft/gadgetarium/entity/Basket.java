@@ -18,8 +18,10 @@ public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "basket")
     private List<Product> products;
+
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "basket")
     private User user;
 }

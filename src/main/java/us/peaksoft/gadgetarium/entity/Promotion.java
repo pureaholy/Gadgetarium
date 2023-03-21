@@ -18,13 +18,13 @@ public class Promotion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
    @Column(name = "date_of_start")
     private LocalDate dateOfStart;
+
     @Column(name = "date_of_finish")
     private LocalDate dateOfFinish;
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "promotion")
     private List<Product> product;
-
-
-
 }

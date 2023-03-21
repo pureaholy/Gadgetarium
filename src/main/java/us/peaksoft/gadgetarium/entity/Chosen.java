@@ -18,8 +18,10 @@ public class Chosen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "chosen")
     private List<Product> products;
+
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "chosen")
     private User user;
 }

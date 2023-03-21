@@ -22,6 +22,7 @@ public class Category {
 
     @Enumerated(EnumType.STRING)
     private Subcat subcat;
+
     @ManyToOne
     private Product product;
 

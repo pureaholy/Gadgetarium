@@ -23,16 +23,19 @@ public class Product {
     private Long id;
 
     private String name;
-
     private String price;
 
     @Enumerated(EnumType.STRING)
     private Brand brand;
+
     @Enumerated(EnumType.STRING)
     private Color color;
+
     private String dateOfIssue;
+
     @Enumerated(EnumType.STRING)
     private OS os;
+
     private String ram;
     private String rom;
     private String sim;
@@ -42,8 +45,10 @@ public class Product {
     private String image;
     private String displayInch;
     private String appointment;
+
     @Column(name = "capacity_battery")
     private String capacityBattery;
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     private List<Category> category;
 
@@ -51,9 +56,11 @@ public class Product {
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
+
     @ManyToOne
     @JoinColumn(name = "news_id")
     private News news;
+
 
     @ManyToOne
     @JoinColumn(name = "promotion_id")
