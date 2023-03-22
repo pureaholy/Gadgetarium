@@ -24,5 +24,4 @@ public class Category {
     private Subcat subcat;
     @ManyToOne
     private Product product;
-
 }
