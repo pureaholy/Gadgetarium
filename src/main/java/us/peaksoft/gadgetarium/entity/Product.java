@@ -9,6 +9,8 @@ import us.peaksoft.gadgetarium.enums.Brand;
 import us.peaksoft.gadgetarium.enums.Color;
 import us.peaksoft.gadgetarium.enums.OS;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -21,16 +23,19 @@ public class Product {
     private Long id;
 
     private String name;
-
     private String price;
 
     @Enumerated(EnumType.STRING)
     private Brand brand;
+
     @Enumerated(EnumType.STRING)
     private Color color;
+
     private String dateOfIssue;
+
     @Enumerated(EnumType.STRING)
     private OS os;
+
     private String ram;
     private String rom;
     private String sim;
@@ -40,19 +45,22 @@ public class Product {
     private String image;
     private String displayInch;
     private String appointment;
+
     @Column(name = "capacity_battery")
     private String capacityBattery;
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
+    private List<Category> category;
 
     @ManyToOne
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
+
     @ManyToOne
     @JoinColumn(name = "news_id")
     private News news;
+
 
     @ManyToOne
     @JoinColumn(name = "promotion_id")

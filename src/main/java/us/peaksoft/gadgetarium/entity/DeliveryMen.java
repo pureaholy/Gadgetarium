@@ -28,7 +28,6 @@ public class DeliveryMen {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @OneToMany
-    @JoinColumn(name = "order_id")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "deliveryMan")
     private List<Order> orders;
 }

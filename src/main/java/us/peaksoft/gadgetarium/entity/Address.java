@@ -32,6 +32,6 @@ public class Address {
     @Column(name = "country_name")
     private String countryName;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "address")
     private User user;
 }

@@ -19,12 +19,15 @@ public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "date_of_start")
     private LocalDate dateOfStart;
+
      @Column(name = "date_of_finish")
     private LocalDate dateOfFinish;
 
     private int percent;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "discount")
     private List<Product> products;
 }
