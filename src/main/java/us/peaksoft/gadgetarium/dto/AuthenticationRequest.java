@@ -1,5 +1,6 @@
 package us.peaksoft.gadgetarium.dto;
 
+
 import lombok.*;
 
 @Builder
@@ -8,6 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 public class AuthenticationRequest {
+
     private String email;
     private String password;
 }
