@@ -49,8 +49,11 @@ public class Product {
     @Column(name = "capacity_battery")
     private String capacityBattery;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
-    private List<Category> category;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+    @Transient
+    Long categoryId;
 
     @ManyToOne
     @JoinColumn(name = "basket_id")
