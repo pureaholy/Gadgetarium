@@ -35,8 +35,8 @@ VALUES (1,'phone','ASUS','128GB','RED','DWQ2','01-02-2024',
         '5.6MPX','YES','HJF5849JK39JSK','IPHONE','4GB',
         '45000','57TU','567JK','TELE2','450GR',1,1,1,1,1,1);
 
-INSERT INTO categories(id, name, subcat, product_id)
-VALUES (1,'PHone','SMARTPHONES',1);
+INSERT INTO categories(id, name, subcat)
+VALUES (1,'PHone','SMARTPHONES');
 
 INSERT INTO payments(id, amount, created_date, payment_method)
 VALUES (1,53,'01-02-2023','CART');
