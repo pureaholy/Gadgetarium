@@ -78,7 +78,7 @@ public class Product {
     @JoinColumn(name = "chosen_id")
     private Chosen chosen;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "discount_id")
     private Discount discount;
 }
