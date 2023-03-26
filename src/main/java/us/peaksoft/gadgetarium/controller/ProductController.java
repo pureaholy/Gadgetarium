@@ -1,7 +1,9 @@
 package us.peaksoft.gadgetarium.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import us.peaksoft.gadgetarium.dto.ProductDeleteResponse;
 import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
 import us.peaksoft.gadgetarium.service.ProductService;
@@ -9,7 +11,7 @@ import us.peaksoft.gadgetarium.service.ProductService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/gadgetarium/product")
+@RequestMapping("api/product")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
@@ -35,8 +37,7 @@ public class ProductController {
     }
 
     @DeleteMapping("{id}")
-    public String delete(@PathVariable("id") Long id){
-        productService.delete(id);
-        return "The product with this id: " + id + " was deleted";
+    public ProductDeleteResponse delete(@PathVariable("id") Long id){
+        return productService.delete(id);
     }
 }

@@ -2,6 +2,7 @@ package us.peaksoft.gadgetarium.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import us.peaksoft.gadgetarium.dto.ProductDeleteResponse;
 import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
 import us.peaksoft.gadgetarium.entity.Category;
@@ -70,9 +71,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void delete(Long id) {
+    public ProductDeleteResponse delete(Long id) {
+        ProductDeleteResponse productDeleteResponse = new ProductDeleteResponse();
       Product product = productRepository.findById(id).get();
       productRepository.delete(product);
+      productDeleteResponse.setMessage("The product with this id: " + " was deleted");
+      return productDeleteResponse;
     }
 
     public Product mapToEntity(ProductRequest productRequest){
