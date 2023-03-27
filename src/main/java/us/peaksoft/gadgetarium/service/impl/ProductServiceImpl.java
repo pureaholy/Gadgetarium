@@ -37,12 +37,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponse savePriceAndQuantity(ProductPriceAndQuantityRequest productPriceAndQuantityRequest) {
-        Product product = mapToEntityPrice(productPriceAndQuantityRequest);
-       // List<Product>quantity = new ArrayList<>();
-        productRepository.Quantity(product.getId());
-      //  quantity.add(product);
-        productRepository.save(product);
+    public ProductResponse savePriceAndQuantity(Long id,ProductPriceAndQuantityRequest productPriceAndQuantityRequest) {
+       Product product = mapToEntityPrice(productPriceAndQuantityRequest);
+       Long productId = productRepository.Quantity(id);
+       List<Product>products = new ArrayList<>();
+       for(Product product1 : products) {
+           product1 = productRepository.findById(productId).get();
+           if (product1.getId().equals(productId)) {
+               productRepository.save(product1);
+           }
+       }
         return mapToResponse(product);
     }
 

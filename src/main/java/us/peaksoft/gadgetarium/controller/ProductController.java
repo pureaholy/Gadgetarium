@@ -23,9 +23,9 @@ public class ProductController {
     public ProductResponse save(@RequestBody ProductRequest productRequest){
        return productService.save(productRequest);
     }
-    @PostMapping("/savePrice")
-    public ProductResponse savePrice(@RequestBody ProductPriceAndQuantityRequest priceAndQuantityRequest){
-        return productService.savePriceAndQuantity(priceAndQuantityRequest);
+    @PostMapping("/savePrice/{id}")
+    public ProductResponse savePrice(@PathVariable("id") Long id,@RequestBody ProductPriceAndQuantityRequest priceAndQuantityRequest){
+        return productService.savePriceAndQuantity(id,priceAndQuantityRequest);
     }
     @PostMapping("/saveDescription")
     public ProductResponse saveDescription(@RequestBody ProductDescriptionRequest descriptionRequest){
