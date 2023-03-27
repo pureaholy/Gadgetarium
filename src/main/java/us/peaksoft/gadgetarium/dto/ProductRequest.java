@@ -9,8 +9,6 @@ import us.peaksoft.gadgetarium.enums.Brand;
 import us.peaksoft.gadgetarium.enums.Color;
 import us.peaksoft.gadgetarium.enums.OS;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
