@@ -1,6 +1,5 @@
 package us.peaksoft.gadgetarium.dto;
 
-
 import lombok.*;
 
 @Builder
