@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 public class ProductPriceAndQuantityRequest {
-    private String price;
+    private int price;
 
 }
