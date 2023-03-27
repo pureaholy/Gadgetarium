@@ -39,9 +39,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse savePriceAndQuantity(ProductPriceAndQuantityRequest productPriceAndQuantityRequest) {
         Product product = mapToEntityPrice(productPriceAndQuantityRequest);
-        List<Product>quantity = new ArrayList<>();
+       // List<Product>quantity = new ArrayList<>();
         productRepository.Quantity(product.getId());
-        quantity.add(product);
+      //  quantity.add(product);
         productRepository.save(product);
         return mapToResponse(product);
     }
