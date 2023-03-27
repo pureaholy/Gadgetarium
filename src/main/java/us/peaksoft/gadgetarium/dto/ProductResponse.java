@@ -34,5 +34,7 @@ public class ProductResponse {
     private String appointment;
     private String capacityBattery;
     private List<Category> category;
+    private String PDF;
+    private String description;
 
 }

@@ -3,9 +3,7 @@ package us.peaksoft.gadgetarium.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import us.peaksoft.gadgetarium.dto.ProductDeleteResponse;
-import us.peaksoft.gadgetarium.dto.ProductRequest;
-import us.peaksoft.gadgetarium.dto.ProductResponse;
+import us.peaksoft.gadgetarium.dto.*;
 import us.peaksoft.gadgetarium.entity.Category;
 import us.peaksoft.gadgetarium.entity.Product;
 import us.peaksoft.gadgetarium.repository.CategoryRepository;
@@ -39,10 +37,27 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponse update(Long id, ProductRequest productRequest) {
+    public ProductResponse savePriceAndQuantity(ProductPriceAndQuantityRequest productPriceAndQuantityRequest) {
+        Product product = mapToEntityPrice(productPriceAndQuantityRequest);
+        List<Product>quantity = new ArrayList<>();
+        productRepository.Quantity(product.getId());
+        quantity.add(product);
+        productRepository.save(product);
+        return mapToResponse(product);
+    }
+
+    @Override
+    public ProductResponse saveDescription(ProductDescriptionRequest productDescriptionRequest) {
+        Product product = mapToEntityDescription(productDescriptionRequest);
+        productRepository.save(product);
+        return mapToResponse(product);
+    }
+
+    @Override
+    public ProductResponse update(Long id, ProductRequest productRequest,  ProductPriceAndQuantityRequest priceAndQuantityReques, ProductDescriptionRequest descriptionRequest) {
         Product product = productRepository.findById(id).get();
         product.setName(productRequest.getName());
-        product.setPrice(productRequest.getPrice());
+        product.setPrice(priceAndQuantityReques.getPrice());
         product.setBrand(productRequest.getBrand());
         product.setColor(productRequest.getColor());
         product.setDateOfIssue(productRequest.getDateOfIssue());
@@ -53,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
         product.setCpu(productRequest.getCpu());
         product.setWeight(productRequest.getWeight());
         product.setGuarantee(productRequest.getGuarantee());
-        product.setImage(productRequest.getImage());
+        product.setImage(descriptionRequest.getImage());
         product.setDisplayInch(productRequest.getDisplayInch());
         product.setAppointment(productRequest.getAppointment());
         product.setCapacityBattery(productRequest.getCapacityBattery());
@@ -61,6 +76,8 @@ public class ProductServiceImpl implements ProductService {
             Category category = categoryRepository.findById(productRequest.getCategoryId()).get();
             product.setCategory(category);
         }
+        product.setPDF(descriptionRequest.getPDF());
+        product.setDescription(descriptionRequest.getDescription());
         productRepository.saveAndFlush(product);
         return mapToResponse(product);
     }
@@ -88,7 +105,6 @@ public class ProductServiceImpl implements ProductService {
     public Product mapToEntity(ProductRequest productRequest){
         Product product = new Product();
         product.setName(productRequest.getName());
-        product.setPrice(productRequest.getPrice());
         product.setBrand(productRequest.getBrand());
         product.setColor(productRequest.getColor());
         product.setDateOfIssue(productRequest.getDateOfIssue());
@@ -99,7 +115,6 @@ public class ProductServiceImpl implements ProductService {
         product.setCpu(productRequest.getCpu());
         product.setWeight(productRequest.getWeight());
         product.setGuarantee(productRequest.getGuarantee());
-        product.setImage(productRequest.getImage());
         product.setDisplayInch(productRequest.getDisplayInch());
         product.setAppointment(productRequest.getAppointment());
         product.setCapacityBattery(productRequest.getCapacityBattery());
@@ -109,10 +124,25 @@ public class ProductServiceImpl implements ProductService {
         }
         return product;
     }
+
+    public Product mapToEntityPrice(ProductPriceAndQuantityRequest priceAndQuantityRequest){
+        Product product = new Product();
+        product.setPrice(priceAndQuantityRequest.getPrice());
+        return product;
+    }
+
+    public Product mapToEntityDescription(ProductDescriptionRequest descriptionRequest){
+        Product product = new Product();
+        product.setDescription(descriptionRequest.getDescription());
+        product.setImage(descriptionRequest.getImage());
+        product.setPDF(descriptionRequest.getPDF());
+        return product;
+    }
     public ProductResponse mapToResponse(Product product){
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
+        productResponse.setPrice(product.getPrice());
         productResponse.setColor(product.getColor());
         productResponse.setDateOfIssue(product.getDateOfIssue());
         productResponse.setOs(product.getOs());
@@ -126,6 +156,8 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setDisplayInch(product.getDisplayInch());
         productResponse.setAppointment(product.getAppointment());
         productResponse.setCapacityBattery(product.getCapacityBattery());
+        productResponse.setDescription(product.getDescription());
+        productResponse.setPDF(product.getPDF());
         return productResponse;
     }
 }

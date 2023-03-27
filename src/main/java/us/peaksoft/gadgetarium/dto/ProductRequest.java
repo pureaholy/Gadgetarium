@@ -17,7 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductRequest {
     private String name;
-    private String price;
     private Brand brand;
     private Color color;
     private String dateOfIssue;
@@ -28,7 +27,6 @@ public class ProductRequest {
     private String cpu;
     private String weight;
     private String guarantee;
-    private String image;
     private String displayInch;
     private String appointment;
     private String capacityBattery;

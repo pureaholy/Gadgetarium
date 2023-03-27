@@ -45,6 +45,8 @@ public class Product {
     private String image;
     private String displayInch;
     private String appointment;
+    private String PDF;
+    private String description;
 
     @Column(name = "capacity_battery")
     private String capacityBattery;
