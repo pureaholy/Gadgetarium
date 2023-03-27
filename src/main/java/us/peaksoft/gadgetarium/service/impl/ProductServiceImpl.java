@@ -147,6 +147,7 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
         productResponse.setPrice(product.getPrice());
+        productResponse.setBrand(product.getBrand());
         productResponse.setColor(product.getColor());
         productResponse.setDateOfIssue(product.getDateOfIssue());
         productResponse.setOs(product.getOs());
@@ -162,6 +163,7 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setCapacityBattery(product.getCapacityBattery());
         productResponse.setDescription(product.getDescription());
         productResponse.setPDF(product.getPDF());
+        //   productResponse.setCategory(product.getCategory());
         return productResponse;
     }
 }

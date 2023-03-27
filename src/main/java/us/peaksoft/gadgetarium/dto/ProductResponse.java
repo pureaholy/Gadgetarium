@@ -32,7 +32,7 @@ public class ProductResponse {
     private String displayInch;
     private String appointment;
     private String capacityBattery;
-    private List<Category> category;
+    private Category category;
     private String PDF;
     private String description;
 
