@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponse savePriceAndQuantity(Long id,ProductPriceAndQuantityRequest productPriceAndQuantityRequest) {
+    public ProductPriceAndQuantityResponse savePriceAndQuantity(Long id,ProductPriceAndQuantityRequest productPriceAndQuantityRequest) {
        Product product = mapToEntityPrice(productPriceAndQuantityRequest);
        Long productId = productRepository.Quantity(id);
        List<Product>products = new ArrayList<>();
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
                productRepository.save(product1);
            }
        }
-        return mapToResponse(product);
+        return mapToResponce(product,productPriceAndQuantityRequest);
     }
 
     @Override
@@ -163,7 +163,19 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setCapacityBattery(product.getCapacityBattery());
         productResponse.setDescription(product.getDescription());
         productResponse.setPDF(product.getPDF());
+
         //   productResponse.setCategory(product.getCategory());
         return productResponse;
+    }
+    public ProductPriceAndQuantityResponse mapToResponce(Product product, ProductPriceAndQuantityRequest priceAndQuantityRequest){
+        ProductPriceAndQuantityResponse productPriceAndQuantityResponse = new ProductPriceAndQuantityResponse();
+        product.setPrice(priceAndQuantityRequest.getPrice());
+        productPriceAndQuantityResponse.setBrand(product.getBrand());
+        productPriceAndQuantityResponse.setColor(product.getColor());
+        productPriceAndQuantityResponse.setRom(product.getRom());
+        productPriceAndQuantityResponse.setSim(product.getSim());
+      //  productPriceAndQuantityResponse.setQuantityOfProducts();
+        return productPriceAndQuantityResponse;
+
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 public class ProductResponse {
     private Long id;
     private String name;
-    private String price;
+    private int price;
     private Brand brand;
     private Color color;
     private String dateOfIssue;

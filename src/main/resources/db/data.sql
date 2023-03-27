@@ -24,7 +24,7 @@ INSERT INTO categories(id, name, subcat)
 VALUES (1,'Phone','SMARTPHONES');
 
 INSERT INTO products(id, appointment, brand,
-                     capacity_battery, color,
+                     capacity_battery, color,price,
                      cpu, date_of_issue,
                      display_inch, guarantee,
                      image, name, os,
@@ -33,7 +33,7 @@ INSERT INTO products(id, appointment, brand,
                      basket_id, chosen_id,
                      discount_id,
                      news_id, order_list_id, promotion_id,category_id)
-VALUES (1,'phone','ASUS','128GB','RED','DWQ2','01-02-2024',
+VALUES (1,'phone','ASUS','128GB','RED',45000,'DWQ2','01-02-2024',
         '5.6MPX','YES','HJF5849JK39JSK','IPHONE','IOS'
         ,'57TU','567JK','TELE2','450GR',1,1,1,1,1,1,1);
 

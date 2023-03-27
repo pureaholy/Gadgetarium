@@ -18,7 +18,7 @@ public class ProductPriceAndQuantityResponse {
     private Color color;
     private String capacityBattery;
     private String rom;
-    private Long quantityOfSim;
+    private String sim;
     private LocalDate dateOfProduction;
     private Long quantityOfProducts;
     private int price;
