@@ -1,6 +1,7 @@
 package us.peaksoft.gadgetarium.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import us.peaksoft.gadgetarium.dto.ProductDeleteResponse;
 import us.peaksoft.gadgetarium.dto.ProductRequest;
@@ -75,7 +76,12 @@ public class ProductServiceImpl implements ProductService {
         ProductDeleteResponse productDeleteResponse = new ProductDeleteResponse();
       Product product = productRepository.findById(id).get();
       productRepository.delete(product);
-      productDeleteResponse.setMessage("The product with this id: " + " was deleted");
+        if(product != null){
+            productRepository.delete(product);
+            productDeleteResponse.setHttpStatus(HttpStatus.OK);
+        }else{
+            productDeleteResponse.setHttpStatus(HttpStatus.NOT_FOUND);
+        }
       return productDeleteResponse;
     }
 
