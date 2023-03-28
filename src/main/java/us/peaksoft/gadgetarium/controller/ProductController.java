@@ -53,7 +53,7 @@ public class ProductController {
     }
 
     @DeleteMapping("{id}")
-    public ProductDeleteResponse delete(@PathVariable("id") Long id) {
+    public SimpleResponse delete(@PathVariable("id") Long id) {
         return productService.delete(id);
     }
 }

@@ -3,7 +3,7 @@ package us.peaksoft.gadgetarium.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import us.peaksoft.gadgetarium.dto.ProductDeleteResponse;
+import us.peaksoft.gadgetarium.dto.SimpleResponse;
 import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
 import us.peaksoft.gadgetarium.entity.Category;
@@ -94,8 +94,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDeleteResponse delete(Long id) {
-        ProductDeleteResponse productDeleteResponse = new ProductDeleteResponse();
+    public SimpleResponse delete(Long id) {
+        SimpleResponse productDeleteResponse = new SimpleResponse();
         Boolean exists1 = productRepository.existsById(id);
         Product product = new Product();
         if (exists1) {

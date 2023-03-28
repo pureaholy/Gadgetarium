@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDeleteResponse {
+public class SimpleResponse {
     private HttpStatus httpStatus;
     private String message;
 }
