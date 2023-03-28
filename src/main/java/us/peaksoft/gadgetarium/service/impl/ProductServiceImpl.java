@@ -1,6 +1,5 @@
 package us.peaksoft.gadgetarium.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -9,7 +8,6 @@ import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
 import us.peaksoft.gadgetarium.entity.Category;
 import us.peaksoft.gadgetarium.entity.Product;
-import us.peaksoft.gadgetarium.exceptions.NotFoundException;
 import us.peaksoft.gadgetarium.repository.CategoryRepository;
 import us.peaksoft.gadgetarium.repository.ProductRepository;
 import us.peaksoft.gadgetarium.service.ProductService;

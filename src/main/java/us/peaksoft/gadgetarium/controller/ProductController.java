@@ -31,13 +31,13 @@ public class ProductController {
         return productService.save(productRequest);
     }
 
-    @PutMapping("/savePrice/{id}")
+    @PostMapping("/savePrice/{id}")
     public ProductResponse savePrice(@PathVariable("id") Long id,
                                      @RequestBody ProductRequest priceRequest) {
         return productService.savePriceAndQuantity(id, priceRequest);
     }
 
-    @PutMapping("/saveDescription/{id}")
+    @PostMapping("/saveDescription/{id}")
     public ProductResponse saveDescription(@PathVariable("id") Long id, @RequestBody ProductRequest descriptionRequest) {
         return productService.saveDescription(id, descriptionRequest);
     }
