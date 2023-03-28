@@ -26,12 +26,12 @@ public class ProductController {
     }
     @PutMapping("/savePrice/{id}")
     public ProductResponse savePrice(@PathVariable("id") Long id,
-                                                     @RequestBody ProductPriceAndQuantityRequest priceAndQuantityRequest){
-        return productService.savePriceAndQuantity(id,priceAndQuantityRequest);
+                                                     @RequestBody ProductRequest priceRequest){
+        return productService.savePriceAndQuantity(id,priceRequest);
     }
-    @PutMapping("/saveDescription")
-    public ProductResponse saveDescription(@RequestBody ProductDescriptionRequest descriptionRequest){
-        return productService.saveDescription(descriptionRequest);
+    @PutMapping("/saveDescription/{id}")
+    public ProductResponse saveDescription(@PathVariable("id") Long id,@RequestBody ProductRequest descriptionRequest){
+        return productService.saveDescription(id,descriptionRequest);
     }
 
     @GetMapping("{id}")
@@ -40,8 +40,8 @@ public class ProductController {
     }
 
     @PutMapping("{id}")
-    public  ProductResponse update(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest, ProductPriceAndQuantityRequest priceAndQuantityReques, ProductDescriptionRequest descriptionRequest){
-        return productService.update(id,productRequest, priceAndQuantityReques,descriptionRequest);
+    public  ProductResponse update(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest){
+        return productService.update(id,productRequest);
     }
 
     @DeleteMapping("{id}")

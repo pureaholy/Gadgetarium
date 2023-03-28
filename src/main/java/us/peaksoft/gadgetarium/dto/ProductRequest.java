@@ -15,6 +15,7 @@ import us.peaksoft.gadgetarium.enums.OS;
 public class ProductRequest {
     private String name;
     private Brand brand;
+    private int price;
     private Color color;
     private String dateOfIssue;
     private OS os;
@@ -27,5 +28,8 @@ public class ProductRequest {
     private String displayInch;
     private String appointment;
     private String capacityBattery;
+    private String image;
+    private String PDF;
+    private String description;
     private Long categoryId;
 }

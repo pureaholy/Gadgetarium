@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
         List<Product>products = productRepository.findAll();
         List<ProductResponse>productsList = new ArrayList<>();
         for (Product product: products){
-           productsList.add(mapToResponse1(product));
+           productsList.add(mapToResponse(product));
         }
         return productsList;
     }
@@ -33,11 +33,11 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponse save(ProductRequest productRequest) {
         Product product = mapToEntity(productRequest);
         productRepository.save(product);
-        return mapToResponse1(product);
+        return mapToResponse(product);
     }
 
     @Override
-    public ProductResponse savePriceAndQuantity(Long id,ProductPriceAndQuantityRequest productPriceAndQuantityRequest) {
+    public ProductResponse savePriceAndQuantity(Long id,ProductRequest productRequest) {
      /*  product = mapToEntityPrice(productPriceAndQuantityRequest);
        Long productId = productRepository.Quantity(id);
            Product product3 = productRepository.findById(productId).get();
@@ -46,24 +46,28 @@ public class ProductServiceImpl implements ProductService {
            }
 
         return mapToResponse(product,productPriceAndQuantityRequest);*/
-        Product product = mapToEntityPrice(productPriceAndQuantityRequest);
+        Product product = productRepository.findById(id).get();
+        product.setPrice(productRequest.getPrice());
         productRepository.save(product);
-        return mapToResponse1(product);
+        return mapToResponse(product);
 
     }
 
     @Override
-    public ProductResponse saveDescription(ProductDescriptionRequest productDescriptionRequest) {
-        Product product = mapToEntityDescription(productDescriptionRequest);
+    public ProductResponse saveDescription(Long id,ProductRequest productRequest) {
+       Product product = productRepository.findById(id).get();
+       product.setPDF(productRequest.getPDF());
+       product.setImage(productRequest.getImage());
+       product.setDescription(productRequest.getDescription());
         productRepository.save(product);
-        return mapToResponse1(product);
+        return mapToResponse(product);
     }
 
     @Override
-    public ProductResponse update(Long id, ProductRequest productRequest,  ProductPriceAndQuantityRequest priceAndQuantityReques, ProductDescriptionRequest descriptionRequest) {
+    public ProductResponse update(Long id, ProductRequest productRequest) {
         Product product = productRepository.findById(id).get();
         product.setName(productRequest.getName());
-        product.setPrice(priceAndQuantityReques.getPrice());
+        product.setPrice(productRequest.getPrice());
         product.setBrand(productRequest.getBrand());
         product.setColor(productRequest.getColor());
         product.setDateOfIssue(productRequest.getDateOfIssue());
@@ -74,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
         product.setCpu(productRequest.getCpu());
         product.setWeight(productRequest.getWeight());
         product.setGuarantee(productRequest.getGuarantee());
-        product.setImage(descriptionRequest.getImage());
+        product.setImage(productRequest.getImage());
         product.setDisplayInch(productRequest.getDisplayInch());
         product.setAppointment(productRequest.getAppointment());
         product.setCapacityBattery(productRequest.getCapacityBattery());
@@ -82,16 +86,16 @@ public class ProductServiceImpl implements ProductService {
             Category category = categoryRepository.findById(productRequest.getCategoryId()).get();
             product.setCategory(category);
         }
-        product.setPDF(descriptionRequest.getPDF());
-        product.setDescription(descriptionRequest.getDescription());
+        product.setPDF(productRequest.getPDF());
+        product.setDescription(productRequest.getDescription());
         productRepository.saveAndFlush(product);
-        return mapToResponse1(product);
+        return mapToResponse(product);
     }
 
     @Override
     public ProductResponse getById(Long id) {
         Product product = productRepository.findById(id).get();
-        return mapToResponse1(product);
+        return mapToResponse(product);
     }
 
     @Override
@@ -128,29 +132,14 @@ public class ProductServiceImpl implements ProductService {
             Category category = categoryRepository.findById(productRequest.getCategoryId()).get();
             product.setCategory(category);
         }
-        return product;
-    }
 
-    public Product mapToEntityPrice(ProductPriceAndQuantityRequest priceAndQuantityRequest){
-        Product product = new Product();
-        product.setPrice(priceAndQuantityRequest.getPrice());
-        Long productId = productRepository.Quantity(product.getId());
-        product.setId(productId);
-        product.setPrice(priceAndQuantityRequest.getPrice());
         return product;
     }
-
-    public Product mapToEntityDescription(ProductDescriptionRequest descriptionRequest){
-        Product product = new Product();
-        product.setDescription(descriptionRequest.getDescription());
-        product.setImage(descriptionRequest.getImage());
-        product.setPDF(descriptionRequest.getPDF());
-        return product;
-    }
-    public ProductResponse mapToResponse1(Product product){
+    public ProductResponse mapToResponse(Product product){
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
+        productResponse.setPrice(product.getPrice());
         productResponse.setPrice(product.getPrice());
         productResponse.setBrand(product.getBrand());
         productResponse.setColor(product.getColor());
@@ -168,19 +157,7 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setCapacityBattery(product.getCapacityBattery());
         productResponse.setDescription(product.getDescription());
         productResponse.setPDF(product.getPDF());
-
         //   productResponse.setCategory(product.getCategory());
         return productResponse;
-    }
-    public ProductPriceAndQuantityResponse mapToResponse(Product product){
-        ProductPriceAndQuantityResponse productPriceAndQuantityResponse = new ProductPriceAndQuantityResponse();
-        product.setPrice(product.getPrice());
-        productPriceAndQuantityResponse.setBrand(product.getBrand());
-        productPriceAndQuantityResponse.setColor(product.getColor());
-        productPriceAndQuantityResponse.setRom(product.getRom());
-        productPriceAndQuantityResponse.setSim(product.getSim());
-      //  productPriceAndQuantityResponse.setQuantityOfProducts();
-        return productPriceAndQuantityResponse;
-
     }
 }
