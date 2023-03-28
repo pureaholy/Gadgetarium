@@ -1,5 +1,6 @@
 package us.peaksoft.gadgetarium.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
 import us.peaksoft.gadgetarium.entity.Category;
 import us.peaksoft.gadgetarium.entity.Product;
+import us.peaksoft.gadgetarium.exceptions.NotFoundException;
 import us.peaksoft.gadgetarium.repository.CategoryRepository;
 import us.peaksoft.gadgetarium.repository.ProductRepository;
 import us.peaksoft.gadgetarium.service.ProductService;
@@ -96,14 +98,19 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDeleteResponse delete(Long id) {
         ProductDeleteResponse productDeleteResponse = new ProductDeleteResponse();
-        Product product = productRepository.findById(id).get();
-        productRepository.delete(product);
-        if (product != null) {
+         Boolean exists1 = productRepository.existsById(id);
+        Product product = new Product();
+        if(exists1){
+          product  = productRepository.findById(id).get();
+        }
+        boolean exists;
+        exists = productRepository.existsById(id);
+        System.out.println("EXISTS " + exists);
+        if (product.getId()==id && exists) {
             productRepository.delete(product);
             productDeleteResponse.setHttpStatus(HttpStatus.OK);
-        } else {
+        }else {
             productDeleteResponse.setHttpStatus(HttpStatus.NOT_FOUND);
-
         }
         return productDeleteResponse;
     }
