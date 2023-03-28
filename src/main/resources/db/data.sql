@@ -18,7 +18,7 @@ INSERT INTO discounts(id, date_of_finish, date_of_start, percent)
 VALUES (1,'01-03-2023','01-01-2023',25);
 
 INSERT INTO promotions(id, date_of_finish, date_of_start)
-VALUES (1,'01-03-2023','25-03-2023');
+VALUES (1,'2023-04-01','2023-03-25');
 
 INSERT INTO categories(id, name, subcat)
 VALUES (1,'Phone','SMARTPHONES');
