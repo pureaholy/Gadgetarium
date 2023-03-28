@@ -39,6 +39,7 @@ public class Product {
     private String ram;
     private String rom;
     private String sim;
+    private Long quantityOfSim;
     private String cpu;
     private String weight;
     private String guarantee;

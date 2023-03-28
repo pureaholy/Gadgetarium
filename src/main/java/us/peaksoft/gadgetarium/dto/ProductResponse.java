@@ -11,7 +11,8 @@ import us.peaksoft.gadgetarium.enums.OS;
 
 import java.util.List;
 
-@Getter@Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductResponse {
@@ -25,6 +26,7 @@ public class ProductResponse {
     private String ram;
     private String rom;
     private String sim;
+    private Long quantityOfSim;
     private String cpu;
     private String weight;
     private String guarantee;
@@ -36,5 +38,4 @@ public class ProductResponse {
     private String PDF;
     private String description;
     private Long quantityOfProducts;
-
 }

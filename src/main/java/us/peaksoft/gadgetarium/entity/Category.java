@@ -26,5 +26,5 @@ public class Category {
     private Subcat subcat;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
-    private List<Product>products;
+    private List<Product> products;
 }
