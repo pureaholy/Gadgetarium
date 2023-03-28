@@ -1,9 +1,6 @@
 package us.peaksoft.gadgetarium.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.http.HttpStatus;
 
 @Getter
@@ -12,4 +9,5 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 public class ProductDeleteResponse {
     private HttpStatus httpStatus;
+    private String message;
 }

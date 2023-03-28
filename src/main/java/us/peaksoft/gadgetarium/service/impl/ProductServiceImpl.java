@@ -96,19 +96,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDeleteResponse delete(Long id) {
         ProductDeleteResponse productDeleteResponse = new ProductDeleteResponse();
-         Boolean exists1 = productRepository.existsById(id);
+        Boolean exists1 = productRepository.existsById(id);
         Product product = new Product();
-        if(exists1){
-          product  = productRepository.findById(id).get();
+        if (exists1) {
+            product = productRepository.findById(id).get();
         }
-        boolean exists;
-        exists = productRepository.existsById(id);
-        System.out.println("EXISTS " + exists);
-        if (product.getId()==id && exists) {
+        if (product.getId() == id) {
             productRepository.delete(product);
             productDeleteResponse.setHttpStatus(HttpStatus.OK);
-        }else {
+            productDeleteResponse.setMessage("the product with this id: " + product.getId() + " was deleted");
+        } else {
             productDeleteResponse.setHttpStatus(HttpStatus.NOT_FOUND);
+            productDeleteResponse.setMessage("the product's id is " + product.getId());
         }
         return productDeleteResponse;
     }
