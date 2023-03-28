@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
         List<Product>products = productRepository.findAll();
         List<ProductResponse>productsList = new ArrayList<>();
         for (Product product: products){
-           productsList.add(mapToResponse(product));
+           productsList.add(mapToResponse1(product));
         }
         return productsList;
     }
@@ -33,28 +33,30 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponse save(ProductRequest productRequest) {
         Product product = mapToEntity(productRequest);
         productRepository.save(product);
-        return mapToResponse(product);
+        return mapToResponse1(product);
     }
 
     @Override
-    public ProductPriceAndQuantityResponse savePriceAndQuantity(Long id,ProductPriceAndQuantityRequest productPriceAndQuantityRequest) {
-       Product product = mapToEntityPrice(productPriceAndQuantityRequest);
+    public ProductResponse savePriceAndQuantity(Long id,ProductPriceAndQuantityRequest productPriceAndQuantityRequest) {
+     /*  product = mapToEntityPrice(productPriceAndQuantityRequest);
        Long productId = productRepository.Quantity(id);
-       List<Product>products = new ArrayList<>();
-       for(Product product1 : products) {
-           product1 = productRepository.findById(productId).get();
-           if (product1.getId().equals(productId)) {
-               productRepository.save(product1);
+           Product product3 = productRepository.findById(productId).get();
+           if (product.getId().equals(product3)) {
+               productRepository.save(product);
            }
-       }
-        return mapToResponce(product,productPriceAndQuantityRequest);
+
+        return mapToResponse(product,productPriceAndQuantityRequest);*/
+        Product product = mapToEntityPrice(productPriceAndQuantityRequest);
+        productRepository.save(product);
+        return mapToResponse1(product);
+
     }
 
     @Override
     public ProductResponse saveDescription(ProductDescriptionRequest productDescriptionRequest) {
         Product product = mapToEntityDescription(productDescriptionRequest);
         productRepository.save(product);
-        return mapToResponse(product);
+        return mapToResponse1(product);
     }
 
     @Override
@@ -83,13 +85,13 @@ public class ProductServiceImpl implements ProductService {
         product.setPDF(descriptionRequest.getPDF());
         product.setDescription(descriptionRequest.getDescription());
         productRepository.saveAndFlush(product);
-        return mapToResponse(product);
+        return mapToResponse1(product);
     }
 
     @Override
     public ProductResponse getById(Long id) {
         Product product = productRepository.findById(id).get();
-        return mapToResponse(product);
+        return mapToResponse1(product);
     }
 
     @Override
@@ -132,6 +134,9 @@ public class ProductServiceImpl implements ProductService {
     public Product mapToEntityPrice(ProductPriceAndQuantityRequest priceAndQuantityRequest){
         Product product = new Product();
         product.setPrice(priceAndQuantityRequest.getPrice());
+        Long productId = productRepository.Quantity(product.getId());
+        product.setId(productId);
+        product.setPrice(priceAndQuantityRequest.getPrice());
         return product;
     }
 
@@ -142,7 +147,7 @@ public class ProductServiceImpl implements ProductService {
         product.setPDF(descriptionRequest.getPDF());
         return product;
     }
-    public ProductResponse mapToResponse(Product product){
+    public ProductResponse mapToResponse1(Product product){
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
@@ -167,9 +172,9 @@ public class ProductServiceImpl implements ProductService {
         //   productResponse.setCategory(product.getCategory());
         return productResponse;
     }
-    public ProductPriceAndQuantityResponse mapToResponce(Product product, ProductPriceAndQuantityRequest priceAndQuantityRequest){
+    public ProductPriceAndQuantityResponse mapToResponse(Product product){
         ProductPriceAndQuantityResponse productPriceAndQuantityResponse = new ProductPriceAndQuantityResponse();
-        product.setPrice(priceAndQuantityRequest.getPrice());
+        product.setPrice(product.getPrice());
         productPriceAndQuantityResponse.setBrand(product.getBrand());
         productPriceAndQuantityResponse.setColor(product.getColor());
         productPriceAndQuantityResponse.setRom(product.getRom());

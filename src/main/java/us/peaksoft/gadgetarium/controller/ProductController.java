@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import us.peaksoft.gadgetarium.dto.*;
+import us.peaksoft.gadgetarium.entity.Product;
 import us.peaksoft.gadgetarium.service.ProductService;
 
 import java.util.List;
@@ -23,12 +24,12 @@ public class ProductController {
     public ProductResponse save(@RequestBody ProductRequest productRequest){
        return productService.save(productRequest);
     }
-    @PostMapping("/savePrice/{id}")
-    public ProductPriceAndQuantityResponse savePrice(@PathVariable("id") Long id,
-                                     @RequestBody ProductPriceAndQuantityRequest priceAndQuantityRequest){
+    @PutMapping("/savePrice/{id}")
+    public ProductResponse savePrice(@PathVariable("id") Long id,
+                                                     @RequestBody ProductPriceAndQuantityRequest priceAndQuantityRequest){
         return productService.savePriceAndQuantity(id,priceAndQuantityRequest);
     }
-    @PostMapping("/saveDescription")
+    @PutMapping("/saveDescription")
     public ProductResponse saveDescription(@RequestBody ProductDescriptionRequest descriptionRequest){
         return productService.saveDescription(descriptionRequest);
     }
