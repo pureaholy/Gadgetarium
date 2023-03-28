@@ -1,7 +1,9 @@
 package us.peaksoft.gadgetarium.service;
 
-import us.peaksoft.gadgetarium.dto.*;
-import us.peaksoft.gadgetarium.entity.Product;
+import us.peaksoft.gadgetarium.dto.ProductDeleteResponse;
+import us.peaksoft.gadgetarium.dto.ProductRequest;
+import us.peaksoft.gadgetarium.dto.ProductResponse;
+
 
 import java.util.List;
 

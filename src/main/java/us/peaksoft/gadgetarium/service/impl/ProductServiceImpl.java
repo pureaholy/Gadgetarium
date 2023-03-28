@@ -3,7 +3,9 @@ package us.peaksoft.gadgetarium.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import us.peaksoft.gadgetarium.dto.*;
+import us.peaksoft.gadgetarium.dto.ProductDeleteResponse;
+import us.peaksoft.gadgetarium.dto.ProductRequest;
+import us.peaksoft.gadgetarium.dto.ProductResponse;
 import us.peaksoft.gadgetarium.entity.Category;
 import us.peaksoft.gadgetarium.entity.Product;
 import us.peaksoft.gadgetarium.repository.CategoryRepository;
@@ -38,14 +40,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse savePriceAndQuantity(Long id,ProductRequest productRequest) {
-     /*  product = mapToEntityPrice(productPriceAndQuantityRequest);
-       Long productId = productRepository.Quantity(id);
-           Product product3 = productRepository.findById(productId).get();
-           if (product.getId().equals(product3)) {
-               productRepository.save(product);
-           }
-
-        return mapToResponse(product,productPriceAndQuantityRequest);*/
         Product product = productRepository.findById(id).get();
         product.setPrice(productRequest.getPrice());
         productRepository.save(product);
@@ -140,7 +134,6 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
         productResponse.setPrice(product.getPrice());
-        productResponse.setPrice(product.getPrice());
         productResponse.setBrand(product.getBrand());
         productResponse.setColor(product.getColor());
         productResponse.setDateOfIssue(product.getDateOfIssue());
@@ -157,7 +150,9 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setCapacityBattery(product.getCapacityBattery());
         productResponse.setDescription(product.getDescription());
         productResponse.setPDF(product.getPDF());
-        //   productResponse.setCategory(product.getCategory());
+        productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
+                product.getColor(),product.getRam(),
+                product.getSim(),product.getPrice()));
         return productResponse;
     }
 }

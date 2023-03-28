@@ -35,5 +35,6 @@ public class ProductResponse {
     private Category category;
     private String PDF;
     private String description;
+    private Long quantityOfProducts;
 
 }
