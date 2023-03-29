@@ -12,17 +12,11 @@ import us.peaksoft.gadgetarium.dto.RegisterRequest;
 import us.peaksoft.gadgetarium.service.AuthenticationService;
 
 @RestController
-@RequestMapping("/api/controller")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
   private final AuthenticationService service;
-
-  @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(
-      @RequestBody RegisterRequest request) {
-    return ResponseEntity.ok(service.register(request));
-  }
 
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(

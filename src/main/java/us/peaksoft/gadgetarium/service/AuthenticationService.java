@@ -10,10 +10,8 @@ import us.peaksoft.gadgetarium.dto.AuthenticationResponse;
 import us.peaksoft.gadgetarium.dto.RegisterRequest;
 import us.peaksoft.gadgetarium.entity.User;
 import us.peaksoft.gadgetarium.enums.Role;
-import us.peaksoft.gadgetarium.enums.TokenType;
 import us.peaksoft.gadgetarium.repository.UserRepository;
-import us.peaksoft.gadgetarium.token.Token;
-import us.peaksoft.gadgetarium.token.TokenRepository;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
