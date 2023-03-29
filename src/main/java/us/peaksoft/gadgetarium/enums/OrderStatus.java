@@ -5,6 +5,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public enum Role {
-    ADMIN, USER
+public enum OrderStatus {
+    CREATED, CONFIRMED, SHIPPED, CANCELLED, REFUNDED
 }

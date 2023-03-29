@@ -1,79 +1,60 @@
 package us.peaksoft.gadgetarium.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import us.peaksoft.gadgetarium.enums.Role;
-import us.peaksoft.gadgetarium.token.Token;
-import java.util.Collection;
+
 import java.util.List;
+
+@Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  @Id
-  @GeneratedValue
-  private Long id;
-  private String firstname;
-  private String lastname;
-  private String email;
-  private String password;
+    @Column(name = "first_name")
+    private String firstName;
 
-  @Enumerated(EnumType.STRING)
-  private Role role;
+    @Column(name = "last_name")
+    private String lastName;
 
-  @OneToMany(mappedBy = "user")
-  private List<Token> tokens;
+    @Column(name = "email")
+    private String email;
 
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(new SimpleGrantedAuthority(role.name()));
-  }
+    @Column(name = "password")
+    private String password;
 
-  @Override
-  public String getPassword() {
-    return password;
-  }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
 
-  @Override
-  public String getUsername() {
-    return email;
-  }
+    @OneToOne
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
 
-  @Override
-  public boolean isAccountNonExpired() {
-    return true;
-  }
+    @OneToOne
+    @JoinColumn(name = "chosen_id")
+    private Chosen chosen;
 
-  @Override
-  public boolean isAccountNonLocked() {
-    return true;
-  }
+    @OneToOne
+    @JoinColumn(name = "order_list_id")
+    private OrderList orderList;
 
-  @Override
-  public boolean isCredentialsNonExpired() {
-    return true;
-  }
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 
-  @Override
-  public boolean isEnabled() {
-    return true;
-  }
+    @OneToOne
+    @JoinColumn(name = "payments_id")
+    private Payments payments;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Order> orders;
 }
