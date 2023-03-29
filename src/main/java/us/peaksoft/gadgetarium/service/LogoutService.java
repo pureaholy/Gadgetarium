@@ -12,7 +12,6 @@ import us.peaksoft.gadgetarium.token.TokenRepository;
 @Service
 @RequiredArgsConstructor
 public class LogoutService implements LogoutHandler {
-
   private final TokenRepository tokenRepository;
 
   @Override

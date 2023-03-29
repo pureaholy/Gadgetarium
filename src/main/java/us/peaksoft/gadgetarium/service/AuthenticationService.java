@@ -14,7 +14,6 @@ import us.peaksoft.gadgetarium.enums.TokenType;
 import us.peaksoft.gadgetarium.repository.UserRepository;
 import us.peaksoft.gadgetarium.token.Token;
 import us.peaksoft.gadgetarium.token.TokenRepository;
-
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
