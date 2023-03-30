@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import us.peaksoft.gadgetarium.dto.*;
+import us.peaksoft.gadgetarium.service.DiscountService;
 import us.peaksoft.gadgetarium.service.ProductService;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final DiscountService discountService;
 
     @GetMapping
     public List<ProductResponse> AllProducts() {
@@ -55,5 +57,15 @@ public class ProductController {
     @DeleteMapping("{id}")
     public SimpleResponse delete(@PathVariable("id") Long id) {
         return productService.delete(id);
+    }
+
+    @GetMapping("/discount")
+    public List<DiscountResponse> discounts(){
+       return discountService.getAllDiscounts();
+    }
+
+    @PostMapping("/saveDiscount")
+    public DiscountResponse save(@RequestBody DiscountRequest discountRequest){
+        return discountService.save(discountRequest);
     }
 }

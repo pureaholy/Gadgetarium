@@ -112,7 +112,7 @@ public class ProductServiceImpl implements ProductService {
         return productDeleteResponse;
     }
 
-    public Product mapToEntity(ProductRequest productRequest) {
+    private Product mapToEntity(ProductRequest productRequest) {
         Product product = new Product();
         product.setName(productRequest.getName());
         product.setBrand(productRequest.getBrand());
@@ -137,7 +137,7 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
-    public ProductResponse mapToResponse(Product product) {
+    private ProductResponse mapToResponse(Product product) {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
