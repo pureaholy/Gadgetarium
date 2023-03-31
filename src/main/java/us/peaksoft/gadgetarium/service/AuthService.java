@@ -18,14 +18,13 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     public User mapToEntity(RegisterRequest request) {
-        User user = User.builder().firstName(request.getFirstName())
+        return User.builder().firstName(request.getFirstName())
                 .lastName(request.getLastname()).email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .phoneNumber(request.getPhoneNumber())
                 .createdDate(LocalDate.now())
                 .build();
-        return user;
 
     }
 
