@@ -29,6 +29,7 @@ public class Payments {
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method")
     private PaymentMethod paymentMethod;
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "payments")
     private User user;
 }

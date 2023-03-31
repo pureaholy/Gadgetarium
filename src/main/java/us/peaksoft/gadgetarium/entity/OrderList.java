@@ -18,9 +18,10 @@ public class OrderList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderList")
     private List<Product> products;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "orderList")
     private User user;
 }

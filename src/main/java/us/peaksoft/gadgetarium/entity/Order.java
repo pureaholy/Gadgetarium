@@ -19,13 +19,16 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "count_of_product")
     private Short countOfProducts;
-     @Column(name = "total_sum")
+
+    @Column(name = "total_sum")
     private Float totalSum;
 
     private String shipping;
-     @Column(name = "type_payment")
+
+    @Column(name = "type_payment")
     private String typePayment;
 
     @Enumerated(EnumType.STRING)
