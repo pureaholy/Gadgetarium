@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -21,8 +20,8 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/gadgetarium/auth/**").permitAll()
-                .requestMatchers("/api/gadgetarium/auth/register")
+                .requestMatchers("/api/public/**").permitAll()
+                .requestMatchers("/api/public/register")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
