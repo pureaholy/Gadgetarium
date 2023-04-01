@@ -10,17 +10,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class S3Service{
+public class S3Service {
     @Value("${application.bucket.name}")
     private String bucketName;
-
     private final AmazonS3 s3Client;
 
     public String uploadFile(MultipartFile file) {
@@ -30,7 +29,6 @@ public class S3Service{
         fileObj.delete();
         return "File uploaded : " + fileName;
     }
-
 
     public byte[] downloadFile(String fileName) {
         S3Object s3Object = s3Client.getObject(bucketName, fileName);
@@ -44,12 +42,10 @@ public class S3Service{
         return null;
     }
 
-
     public String deleteFile(String fileName) {
         s3Client.deleteObject(bucketName, fileName);
         return fileName + " removed ...";
     }
-
 
     private File convertMultiPartFileToFile(MultipartFile file) {
         File convertedFile = new File(file.getOriginalFilename());
@@ -60,6 +56,4 @@ public class S3Service{
         }
         return convertedFile;
     }
-
-
 }

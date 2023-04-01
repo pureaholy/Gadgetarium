@@ -1,4 +1,5 @@
 package us.peaksoft.gadgetarium.s3;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
@@ -6,12 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/s3")
 public class S3StorageController {
-
     private final S3Service service;
 
     @PostMapping("/upload")
