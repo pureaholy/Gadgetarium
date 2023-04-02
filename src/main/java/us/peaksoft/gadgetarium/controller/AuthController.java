@@ -16,7 +16,7 @@ import us.peaksoft.gadgetarium.security.JwtService;
 import us.peaksoft.gadgetarium.service.AuthService;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/public")
 @RequiredArgsConstructor
 public class AuthController {
 
