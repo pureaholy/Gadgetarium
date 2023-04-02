@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import us.peaksoft.gadgetarium.dto.AuthenticationRequest;
 import us.peaksoft.gadgetarium.dto.AuthenticationResponse;
+import us.peaksoft.gadgetarium.dto.RegisterRequest;
 import us.peaksoft.gadgetarium.entity.User;
 import us.peaksoft.gadgetarium.repository.UserRepository;
 import us.peaksoft.gadgetarium.security.JwtService;
@@ -31,4 +32,9 @@ public class AuthController {
     User user = userRepository.findByEmail(token.getName()).orElseThrow();
     return authService.view(tokenUtil.generateToken(user),"successful",user);
   }
+
+    @PostMapping("register")
+    public AuthenticationResponse register(@RequestBody RegisterRequest request){
+        return  authService.register(request);
+    }
 }

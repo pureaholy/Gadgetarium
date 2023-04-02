@@ -12,12 +12,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import us.peaksoft.gadgetarium.enums.Role;
-
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -70,10 +73,10 @@ public class User implements UserDetails {
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
-
     @OneToOne
     @JoinColumn(name = "payments_id")
     private Payments payments;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Order> orders;
 
@@ -106,5 +109,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }
