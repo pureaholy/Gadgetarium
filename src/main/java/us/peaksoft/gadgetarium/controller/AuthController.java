@@ -1,5 +1,6 @@
 package us.peaksoft.gadgetarium.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("register")
+    @Operation(description = "All user can sign up")
     public AuthenticationResponse register(@RequestBody RegisterRequest request){
         return  authService.register(request);
     }
