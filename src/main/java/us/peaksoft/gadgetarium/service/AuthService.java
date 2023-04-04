@@ -1,20 +1,25 @@
 package us.peaksoft.gadgetarium.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import us.peaksoft.gadgetarium.dto.AuthenticationRequest;
 import us.peaksoft.gadgetarium.dto.AuthenticationResponse;
 import us.peaksoft.gadgetarium.entity.User;
 import us.peaksoft.gadgetarium.repository.UserRepository;
 import us.peaksoft.gadgetarium.dto.RegisterRequest;
 import us.peaksoft.gadgetarium.enums.Role;
+import us.peaksoft.gadgetarium.security.JwtService;
 import java.time.LocalDate;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-
-  private final UserRepository userRepository;
-  private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService tokenUtil;
 
   public AuthenticationResponse view(String token, String message, User user) {
     AuthenticationResponse response = new AuthenticationResponse();
@@ -58,6 +63,12 @@ public class AuthService {
         User user = mapToEntity(request);
         userRepository.save(user);
         return responseForRegister(user);
+    }
+    public AuthenticationResponse authenticate(AuthenticationRequest request){
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword());
+        authenticationManager.authenticate(token);
+        User user = userRepository.findByEmail(token.getName()).orElseThrow();
+        return view(tokenUtil.generateToken(user),"successful",user);
     }
 
 }
