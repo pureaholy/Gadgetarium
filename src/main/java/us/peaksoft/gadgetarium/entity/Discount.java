@@ -30,7 +30,4 @@ public class Discount {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "discount")
     private List<Product> products;
-
-    @Transient
-    private Long productId;
 }

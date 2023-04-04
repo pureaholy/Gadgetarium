@@ -24,44 +24,37 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-  //  @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public List<ProductResponse> AllProducts() {
         return productService.getAllProducts();
     }
 
     @PostMapping("/saveMain")
-   // @PreAuthorize("hasAuthority('ADMIN')")
     public ProductResponse save(@RequestBody ProductRequest productRequest) {
         return productService.save(productRequest);
     }
 
     @PostMapping("/savePrice/{id}")
-  //  @PreAuthorize("hasAuthority('ADMIN')")
     public ProductResponse savePrice(@PathVariable("id") Long id,
                                      @RequestBody ProductRequest priceRequest) {
         return productService.savePriceAndQuantity(id, priceRequest);
     }
 
     @PostMapping("/saveDescription/{id}")
- //   @PreAuthorize("hasAuthority('ADMIN')")
     public ProductResponse saveDescription(@PathVariable("id") Long id, @RequestBody ProductRequest descriptionRequest) {
         return productService.saveDescription(id, descriptionRequest);
     }
 
     @GetMapping("{id}")
- //   @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public ProductResponse getById(@PathVariable("id") Long id) {
         return productService.getById(id);
     }
 
     @PutMapping("{id}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
     public ProductResponse update(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest) {
         return productService.update(id, productRequest);
     }
 
     @DeleteMapping("{id}")
-//    @PreAuthorize("hasAuthority('ADMIN')")
     public SimpleResponse delete(@PathVariable("id") Long id) {
         return productService.delete(id);
     }

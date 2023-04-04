@@ -76,7 +76,7 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     public List<ProductResponse> getProductsByDiscountId(Long id, int page, int size) {
-        Pageable pageable = PageRequest.of(page-1, size);
+        Pageable pageable = PageRequest.of(page - 1, size);
         List<Product> products = discountRepository.getProductsByDiscountId(id, pageable);
         List<ProductResponse> productResponses = new ArrayList<>();
         for (Product product : products) {
