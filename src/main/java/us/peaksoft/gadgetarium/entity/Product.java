@@ -22,6 +22,7 @@ public class Product {
 
     private String name;
     private int price;
+    private int currentPrice;
 
     @Enumerated(EnumType.STRING)
     private Brand brand;
@@ -82,4 +83,7 @@ public class Product {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "discount_id")
     private Discount discount;
+
+    @Transient
+    private Long discountId;
 }

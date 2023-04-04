@@ -15,5 +15,5 @@ public class DiscountRequest {
     private LocalDate dateOfStart;
     private LocalDate dateOfFinish;
     private int percent;
- //   private Long productId;
+    private Long productId;
 }

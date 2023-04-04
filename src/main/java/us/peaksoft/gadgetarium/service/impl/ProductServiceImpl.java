@@ -7,8 +7,10 @@ import us.peaksoft.gadgetarium.dto.SimpleResponse;
 import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
 import us.peaksoft.gadgetarium.entity.Category;
+import us.peaksoft.gadgetarium.entity.Discount;
 import us.peaksoft.gadgetarium.entity.Product;
 import us.peaksoft.gadgetarium.repository.CategoryRepository;
+import us.peaksoft.gadgetarium.repository.DiscountRepository;
 import us.peaksoft.gadgetarium.repository.ProductRepository;
 import us.peaksoft.gadgetarium.service.ProductService;
 
@@ -20,6 +22,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final DiscountRepository discountRepository;
 
     @Override
     public List<ProductResponse> getAllProducts() {
@@ -133,7 +136,10 @@ public class ProductServiceImpl implements ProductService {
             Category category = categoryRepository.findById(productRequest.getCategoryId()).get();
             product.setCategory(category);
         }
-
+//        if(productRequest.getDiscountId() != null){
+//            Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
+//            product.setDiscount(discount);
+//        }
         return product;
     }
 
@@ -162,6 +168,7 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
+      //  productResponse.setCurrentPrice(product.getPrice()- product.getPrice()*(product.getDiscount().getPercent())*100);
         return productResponse;
     }
 }

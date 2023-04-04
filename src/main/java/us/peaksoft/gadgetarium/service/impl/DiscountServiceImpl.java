@@ -93,6 +93,12 @@ public class DiscountServiceImpl implements DiscountService {
         discount.setPercent(request.getPercent());
         discount.setDateOfStart(request.getDateOfStart());
         discount.setDateOfFinish(request.getDateOfFinish());
+        if(request.getProductId() != null){
+            Product product = productRepository.findById(request.getProductId()).get();
+            List<Product>products = new ArrayList<>();
+            products.add(product);
+            discount.setProducts(products);
+        }
         return discount;
     }
 
@@ -102,6 +108,10 @@ public class DiscountServiceImpl implements DiscountService {
         discountResponse.setPercent(discount.getPercent());
         discountResponse.setDateOfStart(discount.getDateOfStart());
         discountResponse.setDateOfFinish(discount.getDateOfFinish());
+        List<Product>products = new ArrayList<>();
+        for (Product product : products){
+            discountResponse.setProductName(product.getName());
+        }
         return discountResponse;
     }
     private ProductResponse mapToResponse(Product product) {

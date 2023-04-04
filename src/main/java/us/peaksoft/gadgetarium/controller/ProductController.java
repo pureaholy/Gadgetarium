@@ -59,13 +59,4 @@ public class ProductController {
         return productService.delete(id);
     }
 
-    @GetMapping("/discount")
-    public List<DiscountResponse> discounts(){
-       return discountService.getAllDiscounts();
-    }
-
-    @PostMapping("/saveDiscount")
-    public DiscountResponse save(@RequestBody DiscountRequest discountRequest){
-        return discountService.save(discountRequest);
-    }
 }
