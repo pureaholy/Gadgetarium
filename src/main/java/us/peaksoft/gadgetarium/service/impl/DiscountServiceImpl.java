@@ -21,11 +21,12 @@ import java.util.List;
 public class DiscountServiceImpl implements DiscountService {
     private final DiscountRepository discountRepository;
     private final ProductRepository productRepository;
+
     @Override
     public List<DiscountResponse> getAllDiscounts() {
-        List<Discount>discounts = discountRepository.findAll();
-        List<DiscountResponse>responses = new ArrayList<>();
-        for(Discount discount : discounts){
+        List<Discount> discounts = discountRepository.findAll();
+        List<DiscountResponse> responses = new ArrayList<>();
+        for (Discount discount : discounts) {
             responses.add(mapToResponse(discount));
         }
         return responses;
@@ -59,61 +60,48 @@ public class DiscountServiceImpl implements DiscountService {
         SimpleResponse discountDeleteResponse = new SimpleResponse();
         Boolean exists1 = discountRepository.existsById(id);
         Discount discount = new Discount();
-        if(LocalDate.now().isAfter(discount.getDateOfFinish())){
-            if (exists1) {
-                discount = discountRepository.findById(id).get();
-            }
-            if (discount.getId() == id) {
-                discountRepository.delete(discount);
-                discountDeleteResponse.setHttpStatus(HttpStatus.OK);
-                discountDeleteResponse.setMessage("the discount with this id: " + discount.getId() + " was deleted");
-            } else {
-                discountDeleteResponse.setHttpStatus(HttpStatus.NOT_FOUND);
-                discountDeleteResponse.setMessage("the discount's id is " + discount.getId());
-            }
+        if (exists1) {
+            discount = discountRepository.findById(id).get();
+        }
+        if (discount.getId() == id && LocalDate.now().isAfter(discount.getDateOfFinish())) {
+            discountRepository.delete(discount);
+            discountDeleteResponse.setHttpStatus(HttpStatus.OK);
+            discountDeleteResponse.setMessage("the discount with this id: " + discount.getId() + " was deleted");
+        } else {
+            discountDeleteResponse.setHttpStatus(HttpStatus.NOT_FOUND);
+            discountDeleteResponse.setMessage("the discount's id is " + discount.getId());
         }
         return discountDeleteResponse;
     }
 
     @Override
     public List<ProductResponse> getProductsByDiscountId(Long id, int page, int size) {
-        Pageable pageable = PageRequest.of(page,size);
-        List<Product>products = discountRepository.getProductsByDiscountId(id,pageable);
-        List<ProductResponse>productResponses = new ArrayList<>();
-        for(Product product : products){
+        Pageable pageable = PageRequest.of(page, size);
+        List<Product> products = discountRepository.getProductsByDiscountId(id, pageable);
+        List<ProductResponse> productResponses = new ArrayList<>();
+        for (Product product : products) {
             productResponses.add(mapToResponse(product));
         }
         return productResponses;
     }
 
-
-    //discount logics
-    private Discount mapToEntity(DiscountRequest request){
+    private Discount mapToEntity(DiscountRequest request) {
         Discount discount = new Discount();
         discount.setPercent(request.getPercent());
         discount.setDateOfStart(request.getDateOfStart());
         discount.setDateOfFinish(request.getDateOfFinish());
-        if(request.getProductId() != null){
-            Product product = productRepository.findById(request.getProductId()).get();
-            List<Product>products = new ArrayList<>();
-            products.add(product);
-            discount.setProducts(products);
-        }
         return discount;
     }
 
-    private DiscountResponse mapToResponse(Discount discount){
+    private DiscountResponse mapToResponse(Discount discount) {
         DiscountResponse discountResponse = new DiscountResponse();
         discountResponse.setId(discount.getId());
         discountResponse.setPercent(discount.getPercent());
         discountResponse.setDateOfStart(discount.getDateOfStart());
         discountResponse.setDateOfFinish(discount.getDateOfFinish());
-        List<Product>products = new ArrayList<>();
-        for (Product product : products){
-            discountResponse.setProductName(product.getName());
-        }
         return discountResponse;
     }
+
     private ProductResponse mapToResponse(Product product) {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());

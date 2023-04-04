@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/public/register")
                 .permitAll()
                 .requestMatchers("/api/product/**").permitAll()
-                .requestMatchers("api/discount/**").permitAll()
+                .requestMatchers("/api/discount/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

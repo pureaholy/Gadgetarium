@@ -45,6 +45,18 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponse savePriceAndQuantity(Long id, ProductRequest productRequest) {
         Product product = productRepository.findById(id).get();
         product.setPrice(productRequest.getPrice());
+        if (productRequest.getDiscountId() != null) {
+            Boolean exists = discountRepository.existsById(productRequest.getDiscountId());
+            if (exists) {
+                Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
+                double discountPercent = (double) discount.getPercent() / 100;
+                double disPrice = productRequest.getPrice() * discountPercent;
+                int discountedPrice = (int) (productRequest.getPrice() - disPrice);
+                product.setCurrentPrice(discountedPrice);
+                product.setDisPercent(discount.getPercent());
+                product.setDiscount(discount);
+            }
+        }
         productRepository.save(product);
         return mapToResponse(product);
 
@@ -136,10 +148,6 @@ public class ProductServiceImpl implements ProductService {
             Category category = categoryRepository.findById(productRequest.getCategoryId()).get();
             product.setCategory(category);
         }
-//        if(productRequest.getDiscountId() != null){
-//            Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
-//            product.setDiscount(discount);
-//        }
         return product;
     }
 
@@ -168,7 +176,7 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
-      //  productResponse.setCurrentPrice(product.getPrice()- product.getPrice()*(product.getDiscount().getPercent())*100);
+        productResponse.setCurrentPrice(product.getCurrentPrice());
         return productResponse;
     }
 }

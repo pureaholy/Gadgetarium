@@ -1,7 +1,9 @@
 package us.peaksoft.gadgetarium.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
+import net.bytebuddy.utility.nullability.MaybeNull;
 import us.peaksoft.gadgetarium.enums.Brand;
 import us.peaksoft.gadgetarium.enums.Color;
 import us.peaksoft.gadgetarium.enums.OS;
@@ -22,7 +24,7 @@ public class Product {
 
     private String name;
     private int price;
-    private int currentPrice;
+    private double currentPrice;
 
     @Enumerated(EnumType.STRING)
     private Brand brand;
@@ -86,4 +88,7 @@ public class Product {
 
     @Transient
     private Long discountId;
+
+    @Transient
+    private int DisPercent;
 }

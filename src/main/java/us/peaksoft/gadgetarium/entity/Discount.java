@@ -32,5 +32,5 @@ public class Discount {
     private List<Product> products;
 
     @Transient
-    private Long discountId;
+    private Long productId;
 }
