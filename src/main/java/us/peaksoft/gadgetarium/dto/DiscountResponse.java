@@ -18,6 +18,4 @@ public class DiscountResponse {
     private LocalDate dateOfStart;
     private LocalDate dateOfFinish;
     private int percent;
-    private String productName;
-
 }
