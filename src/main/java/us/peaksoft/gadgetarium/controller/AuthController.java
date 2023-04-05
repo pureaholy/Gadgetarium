@@ -18,13 +18,12 @@ import us.peaksoft.gadgetarium.service.AuthService;
 public class AuthController {
   private final AuthService authService;
 
-  @PostMapping("register")
-  public AuthenticationResponse register(@RequestBody RegisterRequest request) {
-    return authService.register(request);
-  }
-
   @PostMapping("/authenticate")
   public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request){
     return authService.authenticate(request);
+  }
+  @PostMapping("register")
+  public AuthenticationResponse register(@RequestBody RegisterRequest request) {
+    return authService.register(request);
   }
 }
