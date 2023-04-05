@@ -2,7 +2,6 @@ package us.peaksoft.gadgetarium.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import us.peaksoft.gadgetarium.dto.DiscountRequest;
 import us.peaksoft.gadgetarium.dto.DiscountResponse;
@@ -13,9 +12,10 @@ import us.peaksoft.gadgetarium.service.DiscountService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/discount")
+@RequestMapping("api/discounts")
 @RequiredArgsConstructor
 public class DiscountController {
+
     private final DiscountService discountService;
 
     @GetMapping

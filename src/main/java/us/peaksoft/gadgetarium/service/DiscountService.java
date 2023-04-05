@@ -8,6 +8,7 @@ import us.peaksoft.gadgetarium.dto.SimpleResponse;
 import java.util.List;
 
 public interface DiscountService {
+
     List<DiscountResponse> getAllDiscounts();
 
     DiscountResponse save(DiscountRequest discountRequest);

@@ -177,6 +177,7 @@ public class ProductServiceImpl implements ProductService {
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
         productResponse.setCurrentPrice(product.getCurrentPrice());
+        productResponse.setDisPercent(product.getDisPercent());
         return productResponse;
     }
 }

@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DiscountResponse {
+
     private Long id;
     private LocalDate dateOfStart;
     private LocalDate dateOfFinish;

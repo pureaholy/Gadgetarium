@@ -40,5 +40,5 @@ public class ProductResponse {
     private String PDF;
     private String description;
     private Long quantityOfProducts;
-  //  private int disPercent;
+    private int disPercent;
 }
