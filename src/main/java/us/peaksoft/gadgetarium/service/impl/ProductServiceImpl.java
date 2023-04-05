@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = productRepository.findAll();
         List<ProductResponse> productsList = new ArrayList<>();
         for (Product product : products) {
-            productsList.add(mapToResponse(product));
+            productsList.add(mapToResponseForDescriptionAndSavingPrice(product));
         }
         return productsList;
     }
