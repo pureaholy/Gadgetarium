@@ -21,4 +21,6 @@ public interface ProductService {
     ProductResponse getById(Long id);
 
     SimpleResponse delete(Long id);
+
+    List<ProductResponse> search(String text, int page, int size);
 }

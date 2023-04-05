@@ -128,6 +128,11 @@ public class ProductServiceImpl implements ProductService {
         return productDeleteResponse;
     }
 
+    @Override
+    public List<ProductResponse> search(String text, int page, int size) {
+        return null;
+    }
+
     private Product mapToEntity(ProductRequest productRequest) {
         Product product = new Product();
         product.setName(productRequest.getName());
