@@ -24,7 +24,6 @@ public class Product {
 
     private String name;
     private int price;
-    private double currentPrice;
 
     @Enumerated(EnumType.STRING)
     private Brand brand;
