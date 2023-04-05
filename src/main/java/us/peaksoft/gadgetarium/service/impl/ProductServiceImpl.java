@@ -20,6 +20,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
+
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
     private final DiscountRepository discountRepository;
