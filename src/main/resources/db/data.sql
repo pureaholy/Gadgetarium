@@ -23,7 +23,7 @@ INSERT INTO categories(id, name, subcat)
 VALUES (1, 'Phone', 'SMARTPHONES');
 
 INSERT INTO products(id, appointment, brand,
-                     capacity_battery, color, price, current_price,
+                     capacity_battery, color, price,
                      cpu, date_of_issue,
                      display_inch, guarantee,
                      image, name, os,
