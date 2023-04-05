@@ -23,6 +23,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/public/**").permitAll()
                 .requestMatchers("/api/public/register")
                 .permitAll()
+                .requestMatchers("/api/product/**").permitAll()
+                .requestMatchers("/api/discounts/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

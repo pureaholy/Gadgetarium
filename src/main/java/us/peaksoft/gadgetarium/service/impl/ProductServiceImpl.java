@@ -7,8 +7,10 @@ import us.peaksoft.gadgetarium.dto.SimpleResponse;
 import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
 import us.peaksoft.gadgetarium.entity.Category;
+import us.peaksoft.gadgetarium.entity.Discount;
 import us.peaksoft.gadgetarium.entity.Product;
 import us.peaksoft.gadgetarium.repository.CategoryRepository;
+import us.peaksoft.gadgetarium.repository.DiscountRepository;
 import us.peaksoft.gadgetarium.repository.ProductRepository;
 import us.peaksoft.gadgetarium.service.ProductService;
 
@@ -18,8 +20,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
+
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final DiscountRepository discountRepository;
 
     @Override
     public List<ProductResponse> getAllProducts() {
@@ -42,6 +46,18 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponse savePriceAndQuantity(Long id, ProductRequest productRequest) {
         Product product = productRepository.findById(id).get();
         product.setPrice(productRequest.getPrice());
+        if (productRequest.getDiscountId() != null) {
+            Boolean exists = discountRepository.existsById(productRequest.getDiscountId());
+            if (exists) {
+                Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
+                double discountPercent = (double) discount.getPercent() / 100;
+                double disPrice = productRequest.getPrice() * discountPercent;
+                int discountedPrice = (int) (productRequest.getPrice() - disPrice);
+                product.setCurrentPrice(discountedPrice);
+                product.setDisPercent(discount.getPercent());
+                product.setDiscount(discount);
+            }
+        }
         productRepository.save(product);
         return mapToResponse(product);
 
@@ -112,7 +128,7 @@ public class ProductServiceImpl implements ProductService {
         return productDeleteResponse;
     }
 
-    public Product mapToEntity(ProductRequest productRequest) {
+    private Product mapToEntity(ProductRequest productRequest) {
         Product product = new Product();
         product.setName(productRequest.getName());
         product.setBrand(productRequest.getBrand());
@@ -133,11 +149,10 @@ public class ProductServiceImpl implements ProductService {
             Category category = categoryRepository.findById(productRequest.getCategoryId()).get();
             product.setCategory(category);
         }
-
         return product;
     }
 
-    public ProductResponse mapToResponse(Product product) {
+    private ProductResponse mapToResponse(Product product) {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
@@ -162,6 +177,8 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
+        productResponse.setCurrentPrice(product.getCurrentPrice());
+        productResponse.setDisPercent(product.getDisPercent());
         return productResponse;
     }
 }
