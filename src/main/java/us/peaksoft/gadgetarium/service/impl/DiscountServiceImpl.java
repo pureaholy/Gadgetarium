@@ -128,7 +128,11 @@ public class DiscountServiceImpl implements DiscountService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
-        productResponse.setCurrentPrice(product.getCurrentPrice());
+        productResponse.setDisPercent(product.getDiscount().getPercent());
+        double disPer = (double) product.getDiscount().getPercent() / 100;
+        double disPrice = product.getPrice() * disPer;
+        int discountedPrice = (int) (product.getPrice() - disPrice);
+        productResponse.setCurrentPrice(discountedPrice);
         return productResponse;
     }
 }
