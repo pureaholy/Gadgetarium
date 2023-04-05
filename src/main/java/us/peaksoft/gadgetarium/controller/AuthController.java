@@ -1,22 +1,20 @@
 package us.peaksoft.gadgetarium.controller;
 
-import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import us.peaksoft.gadgetarium.dto.AuthenticationRequest;
 import us.peaksoft.gadgetarium.dto.AuthenticationResponse;
 import us.peaksoft.gadgetarium.dto.RegisterRequest;
 import us.peaksoft.gadgetarium.service.AuthService;
 
-@PermitAll
 @RestController
-@RequestMapping("/api/public")
+@RequestMapping("api/public")
 @RequiredArgsConstructor
 public class AuthController {
-  private final AuthService authService;
+
+    private final AuthService authService;
 
   @PostMapping("/authenticate")
   public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request){
