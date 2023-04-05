@@ -145,7 +145,9 @@ public class ProductServiceImpl implements ProductService {
         if (productRequest.getDiscountId() != null) {
             Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
             product.setDiscount(discount);
-            product.setDisPercent(discount.getPercent());
+        }else{
+            Discount discount = new Discount();
+            product.setDiscount(discount);
         }
         return product;
     }
@@ -175,7 +177,6 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
-        productResponse.setDisPercent(product.getDisPercent());
         return productResponse;
     }
 
