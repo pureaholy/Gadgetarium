@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponse save(ProductRequest productRequest) {
         Product product = mapToEntity(productRequest);
         productRepository.save(product);
-        return mapToResponseForDescriptionAndSavingPrice(product);
+        return mapToResponse(product);
     }
 
     @Override
