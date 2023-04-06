@@ -16,7 +16,7 @@ import us.peaksoft.gadgetarium.service.ProductService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/product")
+@RequestMapping("api/products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
@@ -26,18 +26,18 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @PostMapping("/saveMain")
+    @PostMapping("save-main")
     public ProductResponse save(@RequestBody ProductRequest productRequest) {
         return productService.save(productRequest);
     }
 
-    @PostMapping("/savePrice/{id}")
+    @PostMapping("save-price/{id}")
     public ProductResponse savePrice(@PathVariable("id") Long id,
                                      @RequestBody ProductRequest priceRequest) {
         return productService.savePriceAndQuantity(id, priceRequest);
     }
 
-    @PostMapping("/saveDescription/{id}")
+    @PostMapping("save-description/{id}")
     public ProductResponse saveDescription(@PathVariable("id") Long id, @RequestBody ProductRequest descriptionRequest) {
         return productService.saveDescription(id, descriptionRequest);
     }
