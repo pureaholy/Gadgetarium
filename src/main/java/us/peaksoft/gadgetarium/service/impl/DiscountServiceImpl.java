@@ -81,7 +81,7 @@ public class DiscountServiceImpl implements DiscountService {
         List<Product> products = discountRepository.getProductsByDiscountId(id, pageable);
         List<ProductResponse> productResponses = new ArrayList<>();
         for (Product product : products) {
-            productResponses.add(mapToResponse(product));
+            productResponses.add(mapToResponseForProduct(product));
         }
         return productResponses;
     }
@@ -103,7 +103,7 @@ public class DiscountServiceImpl implements DiscountService {
         return discountResponse;
     }
 
-    private ProductResponse mapToResponse(Product product) {
+    private ProductResponse mapToResponseForProduct(Product product) {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
