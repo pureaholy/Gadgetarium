@@ -42,8 +42,8 @@ INSERT INTO delivery_men(id, last_name, name, phone_number)
 VALUES (1, 'Mamatbekova', 'Aidai', '+78956673387');
 
 INSERT INTO users(email, first_name, last_name, password, role)
-VALUES ('admin@gmail.com', 'Admin', 'Adminov', 'admin', 'ADMIN'),
-       ('user@gmail.com', 'User', 'Userov', 'user', 'USER');
+VALUES ('admin@gmail.com', 'Admin', 'Adminov', '$2a$12$zUO1dmnQw.y5asgrJyiNj.TtPFZ3TWj6i5C0mRXy.Sx8wIJrw51j6', 'ADMIN'),
+       ('user@gmail.com', 'User', 'Userov', '$2a$12$GUqbAtoXhNd8qQ1izXUQIu06x8SrLGMXGLv28r1KYsVNyWl/5.rNi', 'USER');
 
 INSERT INTO orders(id, count_of_product, order_status,
                    shipping, total_sum,
