@@ -43,7 +43,7 @@ public class DiscountController {
         return discountService.delete(id);
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("products/{id}")
     public List<ProductResponse> getProducts(@PathVariable(name = "id", required = false) Long id, @RequestParam(value = "page", required = false)
     int page, @RequestParam(name = "size", required = false) int size) {
         return discountService.getProductsByDiscountId(id, page, size);
