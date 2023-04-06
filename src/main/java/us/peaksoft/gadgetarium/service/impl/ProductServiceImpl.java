@@ -9,6 +9,8 @@ import us.peaksoft.gadgetarium.dto.ProductResponse;
 import us.peaksoft.gadgetarium.entity.Category;
 import us.peaksoft.gadgetarium.entity.Discount;
 import us.peaksoft.gadgetarium.entity.Product;
+import us.peaksoft.gadgetarium.enums.Brand;
+import us.peaksoft.gadgetarium.enums.Color;
 import us.peaksoft.gadgetarium.repository.CategoryRepository;
 import us.peaksoft.gadgetarium.repository.DiscountRepository;
 import us.peaksoft.gadgetarium.repository.ProductRepository;
@@ -31,6 +33,16 @@ public class ProductServiceImpl implements ProductService {
         List<ProductResponse> productsList = new ArrayList<>();
         for (Product product : products) {
             productsList.add(mapToResponse(product));
+        }
+        return productsList;
+    }
+
+    @Override
+    public List<ProductResponse> filterProducts(Brand brand, Color color, String ram, String rom) {
+        List<Product> products = productRepository.filter(brand, color, ram, rom);
+        List<ProductResponse> productsList = new ArrayList<>();
+        for (Product product : products){
+                productsList.add(mapToResponse(product));
         }
         return productsList;
     }
