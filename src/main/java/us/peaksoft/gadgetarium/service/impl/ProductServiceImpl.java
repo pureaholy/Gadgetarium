@@ -172,9 +172,6 @@ public class ProductServiceImpl implements ProductService {
         if (productRequest.getDiscountId() != null) {
             Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
             product.setDiscount(discount);
-        }else{
-            Discount discount = new Discount();
-            product.setDiscount(discount);
         }
         return product;
     }
