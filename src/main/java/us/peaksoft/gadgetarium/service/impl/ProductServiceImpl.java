@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = productRepository.findAll();
         List<ProductResponse> productsList = new ArrayList<>();
         for (Product product : products) {
-            productsList.add(mapToResponse(product));
+            productsList.add(mapToResponseForDescriptionAndSavingPrice(product));
         }
         return productsList;
     }
@@ -54,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
             product.setDisPercent(discount.getPercent());
         }
         productRepository.save(product);
-        return mapToResponse(product);
+        return mapToResponseForDescriptionAndSavingPrice(product);
 
     }
 
@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
         product.setImage(productRequest.getImage());
         product.setDescription(productRequest.getDescription());
         productRepository.save(product);
-        return mapToResponse(product);
+        return mapToResponseForDescriptionAndSavingPrice(product);
     }
 
     @Override
@@ -95,13 +95,13 @@ public class ProductServiceImpl implements ProductService {
         product.setPDF(productRequest.getPDF());
         product.setDescription(productRequest.getDescription());
         productRepository.saveAndFlush(product);
-        return mapToResponse(product);
+        return mapToResponseForDescriptionAndSavingPrice(product);
     }
 
     @Override
     public ProductResponse getById(Long id) {
         Product product = productRepository.findById(id).get();
-        return mapToResponse(product);
+        return mapToResponseForDescriptionAndSavingPrice(product);
     }
 
     @Override
@@ -157,14 +157,40 @@ public class ProductServiceImpl implements ProductService {
         if (productRequest.getDiscountId() != null) {
             Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
             product.setDiscount(discount);
-        }else{
-            Discount discount = new Discount();
-            product.setDiscount(discount);
         }
         return product;
     }
 
-        private ProductResponse mapToResponse(Product product) {
+
+    private ProductResponse mapToResponse(Product product) {
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setId(product.getId());
+        productResponse.setName(product.getName());
+        productResponse.setPrice(product.getPrice());
+        productResponse.setBrand(product.getBrand());
+        productResponse.setColor(product.getColor());
+        productResponse.setDateOfIssue(product.getDateOfIssue());
+        productResponse.setOs(product.getOs());
+        productResponse.setRam(product.getRam());
+        productResponse.setRom(product.getRom());
+        productResponse.setSim(product.getSim());
+        productResponse.setQuantityOfSim(product.getQuantityOfSim());
+        productResponse.setCpu(product.getCpu());
+        productResponse.setWeight(product.getWeight());
+        productResponse.setGuarantee(product.getGuarantee());
+        productResponse.setImage(product.getImage());
+        productResponse.setDisplayInch(product.getDisplayInch());
+        productResponse.setAppointment(product.getAppointment());
+        productResponse.setCapacityBattery(product.getCapacityBattery());
+        productResponse.setDescription(product.getDescription());
+        productResponse.setPDF(product.getPDF());
+        productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
+                product.getColor(), product.getRam(),
+                product.getQuantityOfSim(), product.getPrice()));
+        return productResponse;
+    }
+
+    private ProductResponse mapToResponseForDescriptionAndSavingPrice(Product product) {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
