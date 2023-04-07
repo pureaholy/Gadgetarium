@@ -81,7 +81,7 @@ public class DiscountServiceImpl implements DiscountService {
         List<Product> products = discountRepository.getProductsByDiscountId(id, pageable);
         List<ProductResponse> productResponses = new ArrayList<>();
         for (Product product : products) {
-            productResponses.add(mapToResponse(product));
+            productResponses.add(mapToResponseForProduct(product));
         }
         return productResponses;
     }
@@ -103,7 +103,7 @@ public class DiscountServiceImpl implements DiscountService {
         return discountResponse;
     }
 
-    private ProductResponse mapToResponse(Product product) {
+    private ProductResponse mapToResponseForProduct(Product product) {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
@@ -128,7 +128,11 @@ public class DiscountServiceImpl implements DiscountService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
-        productResponse.setCurrentPrice(product.getCurrentPrice());
+        productResponse.setDisPercent(product.getDiscount().getPercent());
+        double disPer = (double) product.getDiscount().getPercent() / 100;
+        double disPrice = product.getPrice() * disPer;
+        int discountedPrice = (int) (product.getPrice() - disPrice);
+        productResponse.setCurrentPrice(discountedPrice);
         return productResponse;
     }
 }
