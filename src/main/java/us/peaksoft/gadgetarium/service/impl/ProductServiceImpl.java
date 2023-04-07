@@ -3,9 +3,10 @@ package us.peaksoft.gadgetarium.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import us.peaksoft.gadgetarium.dto.SimpleResponse;
+import us.peaksoft.gadgetarium.dto.ProductDetailsResponse;
 import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
+import us.peaksoft.gadgetarium.dto.SimpleResponse;
 import us.peaksoft.gadgetarium.entity.Category;
 import us.peaksoft.gadgetarium.entity.Discount;
 import us.peaksoft.gadgetarium.entity.Product;
@@ -122,6 +123,16 @@ public class ProductServiceImpl implements ProductService {
         return productDeleteResponse;
     }
 
+    @Override
+    public List<ProductDetailsResponse> productDetails() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDetailsResponse> productsList = new ArrayList<>();
+        for (Product product : products) {
+            productsList.add(mapToDetailsResponse(product));
+        }
+        return productsList;
+    }
+
     private Product mapToEntity(ProductRequest productRequest) {
         Product product = new Product();
         product.setName(productRequest.getName());
@@ -186,5 +197,21 @@ public class ProductServiceImpl implements ProductService {
             productResponse.setDisPercent(product.getDiscount().getPercent());
         }
         return productResponse;
+    }
+
+    private ProductDetailsResponse mapToDetailsResponse (Product product) {
+        ProductDetailsResponse productDetailsResponse = new ProductDetailsResponse();
+        productDetailsResponse.setId(product.getId());
+        productDetailsResponse.setImage(productDetailsResponse.getImage());
+        productDetailsResponse.setName(productDetailsResponse.getName());
+        productDetailsResponse.setColor(product.getColor());
+        productDetailsResponse.setSim(product.getSim());
+        productDetailsResponse.setRam(product.getRam());
+        productDetailsResponse.setRom(product.getRom());
+        productDetailsResponse.setPrice(product.getPrice());
+        productDetailsResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
+                product.getColor(), product.getRam(),
+                product.getQuantityOfSim(), product.getPrice()));
+        return productDetailsResponse;
     }
 }
