@@ -42,12 +42,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponse> filterProducts(Brand brand, Color color, String ram, String rom,int fromPrice,int toPrice,int page, int size) {
-        Pageable pageable = PageRequest.of(page-1, size);
-        List<Product> products = productRepository.filter(brand, color, ram, rom,fromPrice,toPrice,pageable);
+    public List<ProductResponse> filterProducts(Brand brand, Color color, String ram, String rom, int fromPrice, int toPrice, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        List<Product> products = productRepository.filter(brand, color, ram, rom, fromPrice, toPrice, pageable);
         List<ProductResponse> productsList = new ArrayList<>();
-        for (Product product : products){
-                productsList.add(mapToResponse(product));
+        for (Product product : products) {
+            productsList.add(mapToResponse(product));
         }
         return productsList;
     }
@@ -240,7 +240,7 @@ public class ProductServiceImpl implements ProductService {
         return productResponse;
     }
 
-    private ProductDetailsResponse mapToDetailsResponse (Product product) {
+    private ProductDetailsResponse mapToDetailsResponse(Product product) {
         ProductDetailsResponse productDetailsResponse = new ProductDetailsResponse();
         productDetailsResponse.setId(product.getId());
         productDetailsResponse.setImage(productDetailsResponse.getImage());

@@ -12,7 +12,8 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductResponse> getAllProducts();
-    List<ProductResponse> filterProducts(Brand brand, Color color, String ram, String rom,int fromPrice,int toPrice,int page, int size);
+
+    List<ProductResponse> filterProducts(Brand brand, Color color, String ram, String rom, int fromPrice, int toPrice, int page, int size);
 
     ProductResponse save(ProductRequest productRequest);
 
@@ -25,5 +26,6 @@ public interface ProductService {
     ProductResponse getById(Long id);
 
     SimpleResponse delete(Long id);
-    List <ProductDetailsResponse> productDetails();
+
+    List<ProductDetailsResponse> productDetails();
 }

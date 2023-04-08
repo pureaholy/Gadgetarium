@@ -13,8 +13,10 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
     @Query("SELECT  COUNT(u) FROM Product u WHERE u.brand=:brand and u.color=:color and u.ram=:ram and u.quantityOfSim=:sim and u.price=:price")
     Long Quantity(@Param("brand") Brand brand, @Param("color") Color color, @Param("ram") String ram, @Param("sim") Long sim, @Param("price") int price);
+
     @Query("SELECT pro FROM Product pro WHERE cast(pro.brand as string )=:brand OR cast(pro.color as string )=:color OR pro.ram=:ram OR pro.rom=:rom" +
             " or pro.price between :fromPrice and :toPrice")
     List<Product> filter(@Param("brand") Brand brand, @Param("color") Color color, @Param("ram") String ram,
