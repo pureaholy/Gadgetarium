@@ -28,7 +28,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final DiscountRepository discountRepository;
 
-
     @Override
     public List<ProductResponse> getAllProducts() {
         List<Product> products = productRepository.findAll();
@@ -138,7 +137,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> searchAndPagination(String text, int page, int size) {
         String text1 = text == null ? "" : text;
-
         Pageable pageable = PageRequest.of(page-1,size);
         List<Product> products = productRepository.searchProductAndPagination(text1.toUpperCase(),pageable);
         products.forEach(System.out::println);
@@ -177,7 +175,6 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
-
     private ProductResponse mapToResponse(Product product) {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());
@@ -203,6 +200,7 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
+        productResponse.setCategoryName(product.getCategory().getName());
         return productResponse;
     }
 
