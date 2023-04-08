@@ -56,4 +56,10 @@ public class ProductController {
     public List<ProductDetailsResponse> productDetails() {
         return productService.productDetails();
     }
+
+    @GetMapping("search-product")
+    public List<ProductResponse> search(@RequestParam(name = "text", required = false) String text, @RequestParam(value = "page"
+            , required = false) int page, @RequestParam(name = "size", required = false) int size){
+        return productService.searchAndPagination(text,page,size);
+    }
 }
