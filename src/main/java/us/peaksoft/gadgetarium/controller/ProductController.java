@@ -56,5 +56,4 @@ public class ProductController {
     public SimpleResponse delete(@PathVariable("id") Long id) {
         return productService.delete(id);
     }
-
 }
