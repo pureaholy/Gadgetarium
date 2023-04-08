@@ -138,8 +138,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> searchAndPagination(String text, int page, int size) {
         String text1 = text == null ? "" : text;
+
         Pageable pageable = PageRequest.of(page-1,size);
         List<Product> products = productRepository.searchProductAndPagination(text1.toUpperCase(),pageable);
+        products.forEach(System.out::println);
         List<ProductResponse>productResponses = new ArrayList<>();
         for(Product product : products){
             productResponses.add(mapToResponse(product));
