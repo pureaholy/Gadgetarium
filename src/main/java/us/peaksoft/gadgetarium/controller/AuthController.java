@@ -17,12 +17,13 @@ public class AuthController {
 
     private final AuthService authService;
 
-  @PostMapping("authenticate")
-  public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request){
-    return authService.authenticate(request);
-  }
-  @PostMapping("register")
-  public AuthenticationResponse register(@RequestBody RegisterRequest request) {
-    return authService.register(request);
-  }
+    @PostMapping("login")
+    public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request) {
+        return authService.authenticate(request);
+    }
+
+    @PostMapping("register")
+    public AuthenticationResponse register(@RequestBody RegisterRequest request) {
+        return authService.register(request);
+    }
 }

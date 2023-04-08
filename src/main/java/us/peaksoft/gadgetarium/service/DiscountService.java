@@ -22,7 +22,3 @@ public interface DiscountService {
     List<ProductResponse> getProductsByDiscountId(Long id, int page, int size);
 
 }
-
-
-
-
