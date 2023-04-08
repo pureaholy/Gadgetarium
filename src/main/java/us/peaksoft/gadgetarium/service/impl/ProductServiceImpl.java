@@ -3,9 +3,10 @@ package us.peaksoft.gadgetarium.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import us.peaksoft.gadgetarium.dto.SimpleResponse;
+import us.peaksoft.gadgetarium.dto.ProductDetailsResponse;
 import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
+import us.peaksoft.gadgetarium.dto.SimpleResponse;
 import us.peaksoft.gadgetarium.entity.Category;
 import us.peaksoft.gadgetarium.entity.Discount;
 import us.peaksoft.gadgetarium.entity.Product;
@@ -31,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = productRepository.findAll();
         List<ProductResponse> productsList = new ArrayList<>();
         for (Product product : products) {
-            productsList.add(mapToResponse(product));
+            productsList.add(mapToResponseForDescriptionAndSavingPrice(product));
         }
         return productsList;
     }
@@ -53,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
             product.setDisPercent(discount.getPercent());
         }
         productRepository.save(product);
-        return mapToResponse(product);
+        return mapToResponseForDescriptionAndSavingPrice(product);
 
     }
 
@@ -64,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
         product.setImage(productRequest.getImage());
         product.setDescription(productRequest.getDescription());
         productRepository.save(product);
-        return mapToResponse(product);
+        return mapToResponseForDescriptionAndSavingPrice(product);
     }
 
     @Override
@@ -94,13 +95,13 @@ public class ProductServiceImpl implements ProductService {
         product.setPDF(productRequest.getPDF());
         product.setDescription(productRequest.getDescription());
         productRepository.saveAndFlush(product);
-        return mapToResponse(product);
+        return mapToResponseForDescriptionAndSavingPrice(product);
     }
 
     @Override
     public ProductResponse getById(Long id) {
         Product product = productRepository.findById(id).get();
-        return mapToResponse(product);
+        return mapToResponseForDescriptionAndSavingPrice(product);
     }
 
     @Override
@@ -120,6 +121,16 @@ public class ProductServiceImpl implements ProductService {
             productDeleteResponse.setMessage("the product's id is " + product.getId());
         }
         return productDeleteResponse;
+    }
+
+    @Override
+    public List<ProductDetailsResponse> productDetails() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDetailsResponse> productsList = new ArrayList<>();
+        for (Product product : products) {
+            productsList.add(mapToDetailsResponse(product));
+        }
+        return productsList;
     }
 
     private Product mapToEntity(ProductRequest productRequest) {
@@ -146,14 +157,40 @@ public class ProductServiceImpl implements ProductService {
         if (productRequest.getDiscountId() != null) {
             Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
             product.setDiscount(discount);
-        }else{
-            Discount discount = new Discount();
-            product.setDiscount(discount);
         }
         return product;
     }
 
-        private ProductResponse mapToResponse(Product product) {
+
+    private ProductResponse mapToResponse(Product product) {
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setId(product.getId());
+        productResponse.setName(product.getName());
+        productResponse.setPrice(product.getPrice());
+        productResponse.setBrand(product.getBrand());
+        productResponse.setColor(product.getColor());
+        productResponse.setDateOfIssue(product.getDateOfIssue());
+        productResponse.setOs(product.getOs());
+        productResponse.setRam(product.getRam());
+        productResponse.setRom(product.getRom());
+        productResponse.setSim(product.getSim());
+        productResponse.setQuantityOfSim(product.getQuantityOfSim());
+        productResponse.setCpu(product.getCpu());
+        productResponse.setWeight(product.getWeight());
+        productResponse.setGuarantee(product.getGuarantee());
+        productResponse.setImage(product.getImage());
+        productResponse.setDisplayInch(product.getDisplayInch());
+        productResponse.setAppointment(product.getAppointment());
+        productResponse.setCapacityBattery(product.getCapacityBattery());
+        productResponse.setDescription(product.getDescription());
+        productResponse.setPDF(product.getPDF());
+        productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
+                product.getColor(), product.getRam(),
+                product.getQuantityOfSim(), product.getPrice()));
+        return productResponse;
+    }
+
+    private ProductResponse mapToResponseForDescriptionAndSavingPrice(Product product) {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());
         productResponse.setName(product.getName());
@@ -186,5 +223,21 @@ public class ProductServiceImpl implements ProductService {
             productResponse.setDisPercent(product.getDiscount().getPercent());
         }
         return productResponse;
+    }
+
+    private ProductDetailsResponse mapToDetailsResponse (Product product) {
+        ProductDetailsResponse productDetailsResponse = new ProductDetailsResponse();
+        productDetailsResponse.setId(product.getId());
+        productDetailsResponse.setImage(productDetailsResponse.getImage());
+        productDetailsResponse.setName(productDetailsResponse.getName());
+        productDetailsResponse.setColor(product.getColor());
+        productDetailsResponse.setSim(product.getSim());
+        productDetailsResponse.setRam(product.getRam());
+        productDetailsResponse.setRom(product.getRom());
+        productDetailsResponse.setPrice(product.getPrice());
+        productDetailsResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
+                product.getColor(), product.getRam(),
+                product.getQuantityOfSim(), product.getPrice()));
+        return productDetailsResponse;
     }
 }

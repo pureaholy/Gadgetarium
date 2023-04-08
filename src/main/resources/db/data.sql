@@ -14,7 +14,7 @@ INSERT INTO news(id, date_of_finish, date_of_start)
 VALUES (1, '01-06-2023', '01-03-2023');
 
 INSERT INTO discounts(id, date_of_finish, date_of_start, percent)
-VALUES (1, '01-03-2023', '01-01-2023', 25);
+VALUES (1, '01-03-2023', '01-01-2023', 0);
 
 INSERT INTO promotions(id, date_of_finish, date_of_start)
 VALUES (1, '2023-04-01', '2023-03-25');
