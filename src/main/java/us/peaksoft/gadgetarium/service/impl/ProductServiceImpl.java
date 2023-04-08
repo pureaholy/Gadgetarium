@@ -1,6 +1,8 @@
 package us.peaksoft.gadgetarium.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import us.peaksoft.gadgetarium.dto.ProductDetailsResponse;
@@ -40,8 +42,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponse> filterProducts(Brand brand, Color color, String ram, String rom) {
-        List<Product> products = productRepository.filter(brand, color, ram, rom);
+    public List<ProductResponse> filterProducts(Brand brand, Color color, String ram, String rom,int fromPrice,int toPrice,int page, int size) {
+        Pageable pageable = PageRequest.of(page-1, size);
+        List<Product> products = productRepository.filter(brand, color, ram, rom,fromPrice,toPrice,pageable);
         List<ProductResponse> productsList = new ArrayList<>();
         for (Product product : products){
                 productsList.add(mapToResponse(product));

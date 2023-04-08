@@ -22,8 +22,10 @@ public class ProductController {
     }
     @GetMapping("filter-products")
     public List<ProductResponse> filterProducts(@RequestParam("brand") Brand brand, @RequestParam("color") Color color,
-                                                @RequestParam("ram") String ram, @RequestParam("rom") String rom){
-        return productService.filterProducts(brand,color,ram,rom);
+                                                @RequestParam("ram") String ram, @RequestParam("rom") String rom,
+                                                @RequestParam("fromPrice") int fromPrice,@RequestParam("toPrice") int toPrice,
+                                                @RequestParam(value = "page") int page,@RequestParam(name = "size") int size){
+        return productService.filterProducts(brand,color,ram,rom,fromPrice,toPrice,page,size);
     }
 
     @PostMapping("save-main")

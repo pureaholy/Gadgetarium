@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ProductService {
     List<ProductResponse> getAllProducts();
-    List<ProductResponse> filterProducts(Brand brand, Color color, String ram, String rom);
+    List<ProductResponse> filterProducts(Brand brand, Color color, String ram, String rom,int fromPrice,int toPrice,int page, int size);
 
     ProductResponse save(ProductRequest productRequest);
 
