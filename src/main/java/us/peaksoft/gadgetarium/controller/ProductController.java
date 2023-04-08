@@ -4,8 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
-import us.peaksoft.gadgetarium.dto.*;
-import org.springframework.web.bind.annotation.*;
 import us.peaksoft.gadgetarium.dto.ProductDetailsResponse;
 import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
@@ -25,14 +23,12 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @PostMapping("/saveMain")
-    @Operation(description = "Only admin can add a product")
     @PostMapping("save-main")
+    @Operation(description = "Only admin can add a product")
     public ProductResponse save(@RequestBody ProductRequest productRequest) {
         return productService.save(productRequest);
     }
 
-    @PostMapping("/savePrice/{id}")
     @Operation(description = "Only admin can add a price to product")
     @PostMapping("save-price/{id}")
     public ProductResponse savePrice(@PathVariable("id") Long id,
@@ -40,9 +36,8 @@ public class ProductController {
         return productService.savePriceAndQuantity(id, priceRequest);
     }
 
-    @PostMapping("/saveDescription/{id}")
-    @Operation(description = "Only admin can add a description to product" )
     @PostMapping("save-description/{id}")
+    @Operation(description = "Only admin can add a description to product" )
     public ProductResponse saveDescription(@PathVariable("id") Long id, @RequestBody ProductRequest descriptionRequest) {
         return productService.saveDescription(id, descriptionRequest);
     }
