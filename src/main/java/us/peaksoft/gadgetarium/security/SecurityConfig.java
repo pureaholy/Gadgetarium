@@ -31,6 +31,8 @@ public class SecurityConfig {
                 .requestMatchers(AUTH_WHITELIST).permitAll()
                 .requestMatchers("/api/public/register")
                 .permitAll()
+                .requestMatchers("/api/products/**").permitAll()
+                .requestMatchers("/api/discounts/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
