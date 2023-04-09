@@ -65,6 +65,8 @@ public class User implements UserDetails {
     private Payments payments;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Order> orders;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Feedback> feedbacks;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
