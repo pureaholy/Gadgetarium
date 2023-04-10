@@ -20,5 +20,5 @@ public interface FeedbackService {
 
     FeedbackResponce reply(Long id, FeedbackRequest feedbackRequest);
 
-    RatingResponce rating();
+    RatingResponce rating(Long id);
 }

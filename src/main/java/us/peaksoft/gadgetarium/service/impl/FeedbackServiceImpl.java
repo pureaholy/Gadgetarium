@@ -50,7 +50,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         Feedback feedback1 = feedbackRepository.findById(id).get();
         feedback1.setFeedback(feedbackRequest.getFeedback());
         feedback1.setMedia(feedbackRequest.getMedia());
-        feedback1.setCreatedDate(new Date());
+        feedback1.setCreatedAt(new Date());
         feedback1.setProductEvaluation(feedbackRequest.getProductEvaluation());
         feedbackRepository.save(feedback1);
         return mapToResponse(feedback1);
@@ -100,7 +100,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedbackResponce.setProduct(feedback.getProduct().getName());
         feedbackResponce.setFirstName(feedback.getUser().getFirstName());
         feedbackResponce.setLastName(feedback.getUser().getLastName());
-        feedbackResponce.setCreatedDate(feedback.getCreatedDate());
+        feedbackResponce.setCreatedDate(feedback.getCreatedAt());
         return feedbackResponce;
     }
 
@@ -111,19 +111,19 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedback.setProductEvaluation(feedbackRequest.getProductEvaluation());
         feedback.setProduct(productRepository.getById(feedbackRequest.getProduct()));
         feedback.setUser(userRepository.getById(feedbackRequest.getUser()));
-        feedback.setCreatedDate(new Date());
+        feedback.setCreatedAt(new Date());
         return feedback;
     }
 
-    public RatingResponce rating() {
+    public RatingResponce rating(Long id) {
         RatingResponce ratingResponce = new RatingResponce();
-        ratingResponce.setOne(feedbackRepository.countFeedbackByProductEvaluation((byte) 1));
-        ratingResponce.setTwo(feedbackRepository.countFeedbackByProductEvaluation((byte) 2));
-        ratingResponce.setThree(feedbackRepository.countFeedbackByProductEvaluation((byte) 3));
-        ratingResponce.setFour(feedbackRepository.countFeedbackByProductEvaluation((byte) 4));
-        ratingResponce.setFive(feedbackRepository.countFeedbackByProductEvaluation((byte) 5));
-        ratingResponce.setRating(feedbackRepository.rating());
-        ratingResponce.setAllFeedback(feedbackRepository.allfeedback());
+        ratingResponce.setOne(feedbackRepository.countRating(id, (byte) 1));
+        ratingResponce.setTwo(feedbackRepository.countRating(id, (byte) 2));
+        ratingResponce.setThree(feedbackRepository.countRating(id, (byte) 3));
+        ratingResponce.setFour(feedbackRepository.countRating(id, (byte) 4));
+        ratingResponce.setFive(feedbackRepository.countRating(id, (byte) 5));
+        ratingResponce.setRating(feedbackRepository.rating(id));
+        ratingResponce.setAllFeedback(feedbackRepository.allfeedback(id));
         return ratingResponce;
     }
 }

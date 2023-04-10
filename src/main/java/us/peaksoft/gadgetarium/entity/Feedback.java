@@ -29,6 +29,6 @@ public class Feedback {
     private String adminReplay;
     private String media;
     private byte productEvaluation;
-    private Date createdDate;
+    private Date createdAt;
 
 }

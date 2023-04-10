@@ -11,7 +11,7 @@ import us.peaksoft.gadgetarium.service.FeedbackService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/feedback")
+@RequestMapping("api/feedbacks")
 @RequiredArgsConstructor
 public class FeedbackController {
     private final FeedbackService feedbackService;
@@ -46,8 +46,8 @@ public class FeedbackController {
         return feedbackService.reply(id, feedbackRequest);
     }
 
-    @GetMapping("/rating")
-    public RatingResponce rating() {
-        return feedbackService.rating();
+    @GetMapping("/rating/{id}")
+    public RatingResponce rating(@PathVariable("id") Long id) {
+        return feedbackService.rating(id);
     }
 }
