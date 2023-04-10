@@ -1,6 +1,8 @@
 package us.peaksoft.gadgetarium.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import us.peaksoft.gadgetarium.dto.ProductDetailsResponse;
@@ -25,7 +27,6 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
     private final DiscountRepository discountRepository;
-
 
     @Override
     public List<ProductResponse> getAllProducts() {
@@ -133,6 +134,18 @@ public class ProductServiceImpl implements ProductService {
         return productsList;
     }
 
+    @Override
+    public List<ProductResponse> searchAndPagination(String text, int page, int size) {
+        String text1 = text == null ? "" : text;
+        Pageable pageable = PageRequest.of(page-1,size);
+        List<Product> products = productRepository.searchProductAndPagination(text1.toUpperCase(),pageable);
+        List<ProductResponse>productResponses = new ArrayList<>();
+        for(Product product : products){
+            productResponses.add(mapToResponse(product));
+        }
+        return productResponses;
+    }
+
     private Product mapToEntity(ProductRequest productRequest) {
         Product product = new Product();
         product.setName(productRequest.getName());
@@ -161,7 +174,6 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
-
     private ProductResponse mapToResponse(Product product) {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setId(product.getId());
@@ -187,6 +199,7 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
+        productResponse.setCategoryName(product.getCategory().getName());
         return productResponse;
     }
 
