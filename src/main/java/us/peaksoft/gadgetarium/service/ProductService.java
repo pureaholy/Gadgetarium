@@ -22,5 +22,8 @@ public interface ProductService {
     ProductResponse getById(Long id);
 
     SimpleResponse delete(Long id);
+
     List <ProductDetailsResponse> productDetails();
+
+    List<ProductResponse>searchAndPagination(String text, int page, int size);
 }
