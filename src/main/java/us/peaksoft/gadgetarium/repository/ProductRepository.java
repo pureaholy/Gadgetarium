@@ -18,10 +18,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT  COUNT(u) FROM Product u WHERE u.brand=:brand and u.color=:color and u.ram=:ram and u.quantityOfSim=:sim and u.price=:price")
     Long Quantity(@Param("brand") Brand brand, @Param("color") Color color, @Param("ram") String ram, @Param("sim") Long sim, @Param("price") int price);
 
-    @Query("SELECT pro FROM Product pro WHERE cast(pro.brand as string )=:brand OR cast(pro.color as string )=:color OR pro.ram=:ram OR pro.rom=:rom" +
+    @Query("SELECT pro FROM Product pro WHERE cast(pro.brand as string ) =:brand OR cast(pro.color as string) =:color OR pro.ram=:ram OR pro.rom=:rom" +
             " or pro.price between :fromPrice and :toPrice")
-    List<Product> filter(@Param("brand") Brand brand, @Param("color") Color color, @Param("ram") String ram,
-                         @Param("rom") String rom, @Param("fromPrice") int fromPrice, @Param("toPrice") int toPrice, Pageable pageable);
+    List<Product> filter(@Param("brand") String brand, @Param("color") String color, @Param("ram") String ram,
+                         @Param("rom") String rom,@Param("fromPrice") int fromPrice, @Param("toPrice") int toPrice, Pageable pageable);
+
     @Query("SELECT p FROM Product p join p.category cat where upper(cat.name) like concat('%', :text, '%') or cast(upper(cat.subcat) as string) " +
             "like concat('%', :text, '%')" +
             "or upper(p.name) like concat('%', :text, '%')" +

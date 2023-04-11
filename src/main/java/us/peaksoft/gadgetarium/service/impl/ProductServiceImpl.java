@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponse> filterProducts(Brand brand, Color color, String ram, String rom, int fromPrice, int toPrice, int page, int size) {
+    public List<ProductResponse> filterProducts(String brand, String color, String ram, String rom, int fromPrice, int toPrice, int page, int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
         List<Product> products = productRepository.filter(brand, color, ram, rom, fromPrice, toPrice, pageable);
         List<ProductResponse> productsList = new ArrayList<>();

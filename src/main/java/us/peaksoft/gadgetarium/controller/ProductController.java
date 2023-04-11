@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("api/products")
 @RequiredArgsConstructor
 public class ProductController {
+
     private final ProductService productService;
 
     @GetMapping
@@ -22,7 +23,7 @@ public class ProductController {
     }
 
     @GetMapping("filter-products")
-    public List<ProductResponse> filterProducts(@RequestParam("brand") Brand brand, @RequestParam("color") Color color,
+    public List<ProductResponse> filterProducts(@RequestParam("brand") String brand, @RequestParam("color") String color,
                                                 @RequestParam("ram") String ram, @RequestParam("rom") String rom,
                                                 @RequestParam("fromPrice") int fromPrice, @RequestParam("toPrice") int toPrice,
                                                 @RequestParam(value = "page") int page, @RequestParam(name = "size") int size) {

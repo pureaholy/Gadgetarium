@@ -11,9 +11,10 @@ import us.peaksoft.gadgetarium.enums.Color;
 import java.util.List;
 
 public interface ProductService {
+
     List<ProductResponse> getAllProducts();
 
-    List<ProductResponse> filterProducts(Brand brand, Color color, String ram, String rom, int fromPrice, int toPrice, int page, int size);
+    List<ProductResponse> filterProducts(String brand, String color, String ram, String rom, int fromPrice, int toPrice, int page, int size);
 
     ProductResponse save(ProductRequest productRequest);
 
