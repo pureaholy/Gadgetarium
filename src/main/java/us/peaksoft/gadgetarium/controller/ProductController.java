@@ -59,4 +59,15 @@ public class ProductController {
     public SimpleResponse delete(@PathVariable("id") Long id) {
         return productService.delete(id);
     }
+
+    @GetMapping("product-details")
+    public List<ProductDetailsResponse> productDetails() {
+        return productService.productDetails();
+    }
+
+    @GetMapping("search-product")
+    public List<ProductResponse> search(@RequestParam(name = "text", required = false) String text, @RequestParam(value = "page"
+            , required = false) int page, @RequestParam(name = "size", required = false) int size) {
+        return productService.searchAndPagination(text, page, size);
+    }
 }

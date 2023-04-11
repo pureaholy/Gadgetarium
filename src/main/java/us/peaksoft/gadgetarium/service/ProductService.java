@@ -28,4 +28,8 @@ public interface ProductService {
     SimpleResponse delete(Long id);
 
     List<ProductDetailsResponse> productDetails();
+
+    List <ProductDetailsResponse> productDetails();
+
+    List<ProductResponse>searchAndPagination(String text, int page, int size);
 }

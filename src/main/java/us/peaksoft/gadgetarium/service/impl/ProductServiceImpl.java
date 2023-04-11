@@ -48,6 +48,7 @@ public class ProductServiceImpl implements ProductService {
         List<ProductResponse> productsList = new ArrayList<>();
         for (Product product : products) {
             productsList.add(mapToResponse(product));
+            productsList.add(mapToResponseForDescriptionAndSavingPrice(product));
         }
         return productsList;
     }
@@ -69,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
             product.setDisPercent(discount.getPercent());
         }
         productRepository.save(product);
-        return mapToResponseForDescriptionAndSavingPrice(product);
+        return mapToResponse(product);
 
     }
 
@@ -148,6 +149,18 @@ public class ProductServiceImpl implements ProductService {
         return productsList;
     }
 
+    @Override
+    public List<ProductResponse> searchAndPagination(String text, int page, int size) {
+        String text1 = text == null ? "" : text;
+        Pageable pageable = PageRequest.of(page-1,size);
+        List<Product> products = productRepository.searchProductAndPagination(text1.toUpperCase(),pageable);
+        List<ProductResponse>productResponses = new ArrayList<>();
+        for(Product product : products){
+            productResponses.add(mapToResponse(product));
+        }
+        return productResponses;
+    }
+
     private Product mapToEntity(ProductRequest productRequest) {
         Product product = new Product();
         product.setName(productRequest.getName());
@@ -171,6 +184,9 @@ public class ProductServiceImpl implements ProductService {
         }
         if (productRequest.getDiscountId() != null) {
             Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
+            product.setDiscount(discount);
+        }else{
+            Discount discount = new Discount();
             product.setDiscount(discount);
         }
         return product;
@@ -202,6 +218,36 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
+        return productResponse;
+    }
+
+    private ProductResponse mapToResponseForDescriptionAndSavingPrice(Product product) {
+    private ProductResponse mapToResponse(Product product) {
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setId(product.getId());
+        productResponse.setName(product.getName());
+        productResponse.setPrice(product.getPrice());
+        productResponse.setBrand(product.getBrand());
+        productResponse.setColor(product.getColor());
+        productResponse.setDateOfIssue(product.getDateOfIssue());
+        productResponse.setOs(product.getOs());
+        productResponse.setRam(product.getRam());
+        productResponse.setRom(product.getRom());
+        productResponse.setSim(product.getSim());
+        productResponse.setQuantityOfSim(product.getQuantityOfSim());
+        productResponse.setCpu(product.getCpu());
+        productResponse.setWeight(product.getWeight());
+        productResponse.setGuarantee(product.getGuarantee());
+        productResponse.setImage(product.getImage());
+        productResponse.setDisplayInch(product.getDisplayInch());
+        productResponse.setAppointment(product.getAppointment());
+        productResponse.setCapacityBattery(product.getCapacityBattery());
+        productResponse.setDescription(product.getDescription());
+        productResponse.setPDF(product.getPDF());
+        productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
+                product.getColor(), product.getRam(),
+                product.getQuantityOfSim(), product.getPrice()));
+        productResponse.setCategoryName(product.getCategory().getName());
         return productResponse;
     }
 
