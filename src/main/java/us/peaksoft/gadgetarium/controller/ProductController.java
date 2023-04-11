@@ -1,6 +1,7 @@
 package us.peaksoft.gadgetarium.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/products")
+@Tag(name = "ProductController", description = "API endpoints for managing products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+
     @GetMapping
     @Operation(description = "All users and admin can see a list of products ")
     public List<ProductResponse> AllProducts() {
@@ -37,7 +40,7 @@ public class ProductController {
     }
 
     @PostMapping("save-description/{id}")
-    @Operation(description = "Only admin can add a description to product" )
+    @Operation(description = "Only admin can add a description to product")
     public ProductResponse saveDescription(@PathVariable("id") Long id, @RequestBody ProductRequest descriptionRequest) {
         return productService.saveDescription(id, descriptionRequest);
     }

@@ -1,7 +1,7 @@
 package us.peaksoft.gadgetarium.controller;
 
-
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import us.peaksoft.gadgetarium.dto.DiscountRequest;
@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/discounts")
+@Tag(name = "DiscountController", description = "API endpoints for managing discount")
 @RequiredArgsConstructor
 public class DiscountController {
 
