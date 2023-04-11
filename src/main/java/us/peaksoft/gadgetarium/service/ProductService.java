@@ -29,7 +29,5 @@ public interface ProductService {
 
     List<ProductDetailsResponse> productDetails();
 
-    List <ProductDetailsResponse> productDetails();
-
-    List<ProductResponse>searchAndPagination(String text, int page, int size);
+    List<ProductResponse> searchAndPagination(String text, int page, int size);
 }
