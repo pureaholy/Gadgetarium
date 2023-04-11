@@ -14,13 +14,24 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
+    private static final String[] AUTH_WHITELIST = {
+            "/api/v1/auth/**",
+            "/v3/api-docs/**",
+            "/v3/api-docs.yaml",
+            "/swagger-ui/**",
+            "/swagger-ui.html"
+    };
+
     @Bean
-    public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/public/**").permitAll()
+                .requestMatchers(AUTH_WHITELIST).permitAll()
+                .requestMatchers("/api/public/register")
+                .permitAll()
                 .requestMatchers("/api/products/**").permitAll()
                 .requestMatchers("/api/discounts/**").permitAll()
                 .anyRequest()
@@ -32,5 +43,4 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider);
         return http.build();
     }
-
 }
