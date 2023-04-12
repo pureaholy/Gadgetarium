@@ -6,5 +6,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public enum Brand {
-    ASUS
+    ASUS,
+    APPLE,
+    SAMSUNG,
+    HONOR,
+    HUAWEI,
+    XIAOMI
 }

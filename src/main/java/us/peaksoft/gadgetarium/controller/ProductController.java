@@ -5,10 +5,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
-import us.peaksoft.gadgetarium.dto.ProductDetailsResponse;
-import us.peaksoft.gadgetarium.dto.ProductRequest;
-import us.peaksoft.gadgetarium.dto.ProductResponse;
-import us.peaksoft.gadgetarium.dto.SimpleResponse;
+import us.peaksoft.gadgetarium.dto.*;
+import us.peaksoft.gadgetarium.enums.Brand;
+import us.peaksoft.gadgetarium.enums.Color;
 import us.peaksoft.gadgetarium.service.ProductService;
 
 import java.util.List;
@@ -18,12 +17,21 @@ import java.util.List;
 @Tag(name = "ProductController", description = "API endpoints for managing products")
 @RequiredArgsConstructor
 public class ProductController {
+
     private final ProductService productService;
 
     @GetMapping
     @Operation(description = "All users and admin can see a list of products ")
     public List<ProductResponse> AllProducts() {
         return productService.getAllProducts();
+    }
+
+    @GetMapping("filter-products")
+    public List<ProductResponse> filterProducts(@RequestParam("brand") String brand, @RequestParam("color") String color,
+                                                @RequestParam("ram") String ram, @RequestParam("rom") String rom,
+                                                @RequestParam("fromPrice") int fromPrice, @RequestParam("toPrice") int toPrice,
+                                                @RequestParam(value = "page") int page, @RequestParam(name = "size") int size) {
+        return productService.filterProducts(brand, color, ram, rom, fromPrice, toPrice, page, size);
     }
 
     @PostMapping("save-main")
