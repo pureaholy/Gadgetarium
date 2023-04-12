@@ -18,5 +18,4 @@ public class GadgetariumApplication {
 	public String greetingPage(){
 		return "welcome";
 	}
-
 }

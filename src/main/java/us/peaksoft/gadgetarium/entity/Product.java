@@ -1,9 +1,7 @@
 package us.peaksoft.gadgetarium.entity;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
-import net.bytebuddy.utility.nullability.MaybeNull;
 import us.peaksoft.gadgetarium.enums.Brand;
 import us.peaksoft.gadgetarium.enums.Color;
 import us.peaksoft.gadgetarium.enums.OS;
@@ -63,11 +61,9 @@ public class Product {
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
-
     @ManyToOne
     @JoinColumn(name = "news_id")
     private News news;
-
 
     @ManyToOne
     @JoinColumn(name = "promotion_id")
@@ -85,11 +81,13 @@ public class Product {
     @JoinColumn(name = "discount_id")
     private Discount discount;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
-    private List<Order>orders;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<Order> orders;
+
     @Transient
     private Long discountId;
 
     @Transient
     private int DisPercent;
+
 }
