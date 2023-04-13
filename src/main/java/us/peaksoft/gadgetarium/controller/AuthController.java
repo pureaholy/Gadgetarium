@@ -21,6 +21,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("login")
+    @Operation(description = "Using username and password, user can sign in")
     public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request) {
         return authService.authenticate(request);
     }
