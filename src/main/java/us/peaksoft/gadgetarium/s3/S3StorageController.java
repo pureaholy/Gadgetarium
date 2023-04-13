@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @RequestMapping("api/s3")
 public class S3StorageController {
+
     private final S3Service service;
 
     @PostMapping("upload")
