@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
+
     private static final String[] AUTH_WHITELIST = {
             "/api/v1/auth/**",
             "/v3/api-docs/**",
@@ -23,7 +24,7 @@ public class SecurityConfig {
     };
 
     @Bean
-    public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable()
@@ -43,4 +44,5 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider);
         return http.build();
     }
+
 }

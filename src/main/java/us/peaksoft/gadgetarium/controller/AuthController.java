@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import us.peaksoft.gadgetarium.dto.AuthenticationRequest;
 import us.peaksoft.gadgetarium.dto.AuthenticationResponse;
 import us.peaksoft.gadgetarium.dto.RegisterRequest;
 import us.peaksoft.gadgetarium.service.AuthService;
@@ -18,6 +19,12 @@ import us.peaksoft.gadgetarium.service.AuthService;
 public class AuthController {
 
     private final AuthService authService;
+
+    @PostMapping("login")
+    @Operation(description = "Using username and password, user can sign in")
+    public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request) {
+        return authService.authenticate(request);
+    }
 
     @PostMapping("register")
     @Operation(description = "All user can sign up")
