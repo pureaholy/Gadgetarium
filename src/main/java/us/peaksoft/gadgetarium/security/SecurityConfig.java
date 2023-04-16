@@ -15,6 +15,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
+    private static final String[] AUTH_WHITELIST = {
+            "/api/v1/auth/**",
+            "/v3/api-docs/**",
+            "/v3/api-docs.yaml",
+            "/swagger-ui/**",
+            "/swagger-ui.html"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -22,6 +30,9 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/public/**").permitAll()
+                .requestMatchers(AUTH_WHITELIST).permitAll()
+                .requestMatchers("/api/public/register")
+                .permitAll()
                 .requestMatchers("/api/products/**").permitAll()
                 .requestMatchers("/api/discounts/**").permitAll()
                 .requestMatchers("/api/feedbacks/**").permitAll()

@@ -1,16 +1,29 @@
 package us.peaksoft.gadgetarium.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import us.peaksoft.gadgetarium.enums.Role;
-
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-
 @Builder
 @Entity
 @Getter
@@ -18,7 +31,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-@ToString
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,12 +45,18 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     @Column(name = "password")
     private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @Column(name = "created_date")
+    private LocalDate createdDate;
 
     @OneToOne
     @JoinColumn(name = "basket_id")
@@ -55,11 +73,6 @@ public class User implements UserDetails {
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address address;
-
-    @Column(name = "phoneNumber")
-    private String phoneNumber;
-    private LocalDate createdDate;
-
     @OneToOne
     @JoinColumn(name = "payments_id")
     private Payments payments;
@@ -99,5 +112,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }

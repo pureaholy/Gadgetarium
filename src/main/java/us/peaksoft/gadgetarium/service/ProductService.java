@@ -4,12 +4,17 @@ import us.peaksoft.gadgetarium.dto.ProductDetailsResponse;
 import us.peaksoft.gadgetarium.dto.SimpleResponse;
 import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
+import us.peaksoft.gadgetarium.enums.Brand;
+import us.peaksoft.gadgetarium.enums.Color;
 
 
 import java.util.List;
 
 public interface ProductService {
+
     List<ProductResponse> getAllProducts();
+
+    List<ProductResponse> filterProducts(String brand, String color, String ram, String rom, int fromPrice, int toPrice, int page, int size);
 
     ProductResponse save(ProductRequest productRequest);
 
@@ -23,7 +28,7 @@ public interface ProductService {
 
     SimpleResponse delete(Long id);
 
-    List <ProductDetailsResponse> productDetails();
+    List<ProductDetailsResponse> productDetails();
 
-    List<ProductResponse>searchAndPagination(String text, int page, int size);
+    List<ProductResponse> searchAndPagination(String text, int page, int size);
 }

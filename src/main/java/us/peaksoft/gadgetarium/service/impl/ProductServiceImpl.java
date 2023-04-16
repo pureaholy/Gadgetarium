@@ -12,6 +12,8 @@ import us.peaksoft.gadgetarium.dto.SimpleResponse;
 import us.peaksoft.gadgetarium.entity.Category;
 import us.peaksoft.gadgetarium.entity.Discount;
 import us.peaksoft.gadgetarium.entity.Product;
+import us.peaksoft.gadgetarium.enums.Brand;
+import us.peaksoft.gadgetarium.enums.Color;
 import us.peaksoft.gadgetarium.repository.CategoryRepository;
 import us.peaksoft.gadgetarium.repository.DiscountRepository;
 import us.peaksoft.gadgetarium.repository.ProductRepository;
@@ -28,11 +30,24 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final DiscountRepository discountRepository;
 
+
     @Override
     public List<ProductResponse> getAllProducts() {
         List<Product> products = productRepository.findAll();
         List<ProductResponse> productsList = new ArrayList<>();
         for (Product product : products) {
+            productsList.add(mapToResponseForDescriptionAndSavingPrice(product));
+        }
+        return productsList;
+    }
+
+    @Override
+    public List<ProductResponse> filterProducts(String brand, String color, String ram, String rom, int fromPrice, int toPrice, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        List<Product> products = productRepository.filter(brand, color, ram, rom, fromPrice, toPrice, pageable);
+        List<ProductResponse> productsList = new ArrayList<>();
+        for (Product product : products) {
+            productsList.add(mapToResponse(product));
             productsList.add(mapToResponseForDescriptionAndSavingPrice(product));
         }
         return productsList;
@@ -55,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
             product.setDisPercent(discount.getPercent());
         }
         productRepository.save(product);
-        return mapToResponseForDescriptionAndSavingPrice(product);
+        return mapToResponse(product);
 
     }
 
@@ -137,10 +152,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> searchAndPagination(String text, int page, int size) {
         String text1 = text == null ? "" : text;
-        Pageable pageable = PageRequest.of(page-1,size);
-        List<Product> products = productRepository.searchProductAndPagination(text1.toUpperCase(),pageable);
-        List<ProductResponse>productResponses = new ArrayList<>();
-        for(Product product : products){
+        Pageable pageable = PageRequest.of(page - 1, size);
+        List<Product> products = productRepository.searchProductAndPagination(text1.toUpperCase(), pageable);
+        List<ProductResponse> productResponses = new ArrayList<>();
+        for (Product product : products) {
             productResponses.add(mapToResponse(product));
         }
         return productResponses;
@@ -170,9 +185,13 @@ public class ProductServiceImpl implements ProductService {
         if (productRequest.getDiscountId() != null) {
             Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
             product.setDiscount(discount);
+        } else {
+            Discount discount = new Discount();
+            product.setDiscount(discount);
         }
         return product;
     }
+
 
     private ProductResponse mapToResponse(Product product) {
         ProductResponse productResponse = new ProductResponse();
@@ -199,7 +218,6 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
-        productResponse.setCategoryName(product.getCategory().getName());
         return productResponse;
     }
 
@@ -238,7 +256,7 @@ public class ProductServiceImpl implements ProductService {
         return productResponse;
     }
 
-    private ProductDetailsResponse mapToDetailsResponse (Product product) {
+    private ProductDetailsResponse mapToDetailsResponse(Product product) {
         ProductDetailsResponse productDetailsResponse = new ProductDetailsResponse();
         productDetailsResponse.setId(product.getId());
         productDetailsResponse.setImage(productDetailsResponse.getImage());

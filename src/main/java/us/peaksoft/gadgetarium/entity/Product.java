@@ -61,11 +61,9 @@ public class Product {
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
-
     @ManyToOne
     @JoinColumn(name = "news_id")
     private News news;
-
 
     @ManyToOne
     @JoinColumn(name = "promotion_id")
@@ -85,6 +83,7 @@ public class Product {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Order> orders;
+
     @Transient
     private Long discountId;
 
