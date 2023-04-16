@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -29,6 +29,6 @@ public class Feedback {
     private String adminReplay;
     private String media;
     private byte productEvaluation;
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
 }

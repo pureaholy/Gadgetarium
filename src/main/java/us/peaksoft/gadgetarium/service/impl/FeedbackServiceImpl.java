@@ -13,8 +13,8 @@ import us.peaksoft.gadgetarium.repository.ProductRepository;
 import us.peaksoft.gadgetarium.repository.UserRepository;
 import us.peaksoft.gadgetarium.service.FeedbackService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,7 +50,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         Feedback feedback1 = feedbackRepository.findById(id).get();
         feedback1.setFeedback(feedbackRequest.getFeedback());
         feedback1.setMedia(feedbackRequest.getMedia());
-        feedback1.setCreatedAt(new Date());
+        feedback1.setCreatedAt(LocalDateTime.now());
         feedback1.setProductEvaluation(feedbackRequest.getProductEvaluation());
         feedbackRepository.save(feedback1);
         return mapToResponse(feedback1);
@@ -111,7 +111,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedback.setProductEvaluation(feedbackRequest.getProductEvaluation());
         feedback.setProduct(productRepository.getById(feedbackRequest.getProduct()));
         feedback.setUser(userRepository.getById(feedbackRequest.getUser()));
-        feedback.setCreatedAt(new Date());
+        feedback.setCreatedAt(LocalDateTime.now());
         return feedback;
     }
 
@@ -125,5 +125,15 @@ public class FeedbackServiceImpl implements FeedbackService {
         ratingResponce.setRating(feedbackRepository.rating(id));
         ratingResponce.setAllFeedback(feedbackRepository.allfeedback(id));
         return ratingResponce;
+    }
+
+    @Override
+    public List<FeedbackResponce> getAllFeedbacksByProductId(Long id) {
+        List<Feedback> feedbacks = feedbackRepository.findFeedbacksByProductId(id);
+        List<FeedbackResponce> feedbackResponceList = new ArrayList<>();
+        for (Feedback feedback : feedbacks) {
+            feedbackResponceList.add(mapToResponse(feedback));
+        }
+        return feedbackResponceList;
     }
 }

@@ -50,4 +50,9 @@ public class FeedbackController {
     public RatingResponce rating(@PathVariable("id") Long id) {
         return feedbackService.rating(id);
     }
+
+    @GetMapping("/product/{id}")
+    public List<FeedbackResponce> getAllFeedbacksByProduct(@PathVariable("id") Long id) {
+        return feedbackService.getAllFeedbacksByProductId(id);
+    }
 }
