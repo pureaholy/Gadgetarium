@@ -22,5 +22,5 @@ public interface FeedbackService {
 
     RatingResponce rating(Long id);
 
-    List<FeedbackResponce> getAllFeedbacksByProductId(Long id);
+    List<FeedbackResponce> getAllFeedbacksByProductId(Long id, int page, int size);
 }

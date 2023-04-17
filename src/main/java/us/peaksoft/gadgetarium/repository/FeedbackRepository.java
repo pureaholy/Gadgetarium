@@ -1,5 +1,6 @@
 package us.peaksoft.gadgetarium.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,5 +21,5 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     Long allfeedback(@Param("id") Long id);
 
     @Query("select f from Feedback f where f.product.id=:id")
-    List<Feedback> findFeedbacksByProductId(@Param("id") Long id);
+    List<Feedback> findFeedbacksByProductId(@Param("id") Long id, Pageable pageable);
 }

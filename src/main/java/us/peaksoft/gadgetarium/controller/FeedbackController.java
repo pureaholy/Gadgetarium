@@ -63,7 +63,9 @@ public class FeedbackController {
 
     @GetMapping("/product/{id}")
     @Operation(description = "All feedbacks by product id")
-    public List<FeedbackResponce> getAllFeedbacksByProduct(@PathVariable("id") Long id) {
-        return feedbackService.getAllFeedbacksByProductId(id);
+    public List<FeedbackResponce> getAllFeedbacksByProduct(@PathVariable("id") Long id,
+                                                           @RequestParam(value = "page") int page,
+                                                           @RequestParam(name = "size") int size) {
+        return feedbackService.getAllFeedbacksByProductId(id, page, size);
     }
 }

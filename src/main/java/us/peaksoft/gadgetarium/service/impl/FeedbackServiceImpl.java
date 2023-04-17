@@ -1,6 +1,8 @@
 package us.peaksoft.gadgetarium.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import us.peaksoft.gadgetarium.dto.FeedbackRequest;
@@ -128,8 +130,9 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public List<FeedbackResponce> getAllFeedbacksByProductId(Long id) {
-        List<Feedback> feedbacks = feedbackRepository.findFeedbacksByProductId(id);
+    public List<FeedbackResponce> getAllFeedbacksByProductId(Long id, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        List<Feedback> feedbacks = feedbackRepository.findFeedbacksByProductId(id, pageable);
         List<FeedbackResponce> feedbackResponceList = new ArrayList<>();
         for (Feedback feedback : feedbacks) {
             feedbackResponceList.add(mapToResponse(feedback));
