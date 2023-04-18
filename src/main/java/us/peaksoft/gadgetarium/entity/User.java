@@ -80,6 +80,9 @@ public class User implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Order> orders;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Feedback> feedbacks;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
