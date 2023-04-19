@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
             product.setDisPercent(discount.getPercent());
         }
         productRepository.save(product);
-        return mapToResponse(product);
+        return mapToResponseForDescriptionAndSavingPrice(product);
 
     }
 
@@ -252,6 +252,11 @@ public class ProductServiceImpl implements ProductService {
             int discountedPrice = (int) (product.getPrice() - disPrice);
             productResponse.setCurrentPrice(discountedPrice);
             productResponse.setDisPercent(product.getDiscount().getPercent());
+        }
+        if(product.getBasket() != null){
+            productResponse.setInBasket(true);
+        }else{
+            productResponse.setInBasket(false);
         }
         return productResponse;
     }
