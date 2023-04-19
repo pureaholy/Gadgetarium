@@ -66,6 +66,24 @@ public class BasketServiceImpl implements BasketService {
         return productResponses;
     }
 
+    @Override
+    public SimpleResponse removeAllProductFromBasket(Long id, ProductRequest productRequest) {
+        Basket basket = basketRepository.findById(id).get();
+        List<Product>products = basket.getProducts();
+        SimpleResponse simpleResponse = new SimpleResponse();
+        int count = 0;
+        for(Product product : products) {
+            if (product.getBasketId() == null){
+                product.setBasket(null);
+                count++;
+                simpleResponse.setMessage("Products were successfully deleted from cart. Count of products, that you've deleted: " + count);
+                simpleResponse.setHttpStatus(HttpStatus.OK);
+            }
+            productRepository.save(product);
+        }
+        return simpleResponse;
+    }
+
     private BasketResponse mapToResponse(Basket basket) {
         BasketResponse basketResponse = new BasketResponse();
         basketResponse.setId(basket.getId());

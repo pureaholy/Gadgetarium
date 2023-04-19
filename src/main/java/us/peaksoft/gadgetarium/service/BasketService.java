@@ -15,4 +15,6 @@ public interface BasketService {
     SimpleResponse removeProductFromBasket(Long id, ProductRequest productRequest);
 
     List<ProductResponse> getProductsByBasketId(Long id, int page, int size);
+
+    SimpleResponse removeAllProductFromBasket(Long id, ProductRequest productRequest);
 }

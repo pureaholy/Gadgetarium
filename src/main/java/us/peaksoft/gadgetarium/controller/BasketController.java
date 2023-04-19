@@ -30,6 +30,12 @@ public class BasketController {
         return basketService.removeProductFromBasket(id, productRequest);
     }
 
+
+    @PutMapping("remove-all-product/{id}")
+    public SimpleResponse deleteAllProduct(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest){
+        return basketService.removeAllProductFromBasket(id,productRequest);
+    }
+
     @GetMapping("products-of-cart/{id}")
     public List<ProductResponse> productsOfCart(@PathVariable(name = "id", required = false) Long id, @RequestParam(value = "page", required = false)
     int page, @RequestParam(name = "size", required = false) int size) {
