@@ -7,7 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import us.peaksoft.gadgetarium.dto.AuthenticationRequest;
 import us.peaksoft.gadgetarium.dto.AuthenticationResponse;
+import us.peaksoft.gadgetarium.entity.Basket;
 import us.peaksoft.gadgetarium.entity.User;
+import us.peaksoft.gadgetarium.repository.BasketRepository;
 import us.peaksoft.gadgetarium.repository.UserRepository;
 import us.peaksoft.gadgetarium.dto.RegisterRequest;
 import us.peaksoft.gadgetarium.enums.Role;
@@ -20,8 +22,9 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService tokenUtil;
+    private final BasketRepository basketRepository;
 
-  public AuthenticationResponse view(String token, String message, User user) {
+    public AuthenticationResponse view(String token, String message, User user) {
     AuthenticationResponse response = new AuthenticationResponse();
     User user1 = userRepository.findById(user.getId()).get();
     response.setEmail(user1.getEmail());
@@ -38,6 +41,7 @@ public class AuthService {
     if (user != null) {
       response.setAuthority(user.getRole().getAuthority());
     }
+
     return response;
   }
     public User mapToEntity(RegisterRequest request) {
@@ -61,6 +65,8 @@ public class AuthService {
     }
     public AuthenticationResponse register (RegisterRequest request){
         User user = mapToEntity(request);
+        Basket basket = new Basket();
+        user.setBasket(basket);
         userRepository.save(user);
         return responseForRegister(user);
     }

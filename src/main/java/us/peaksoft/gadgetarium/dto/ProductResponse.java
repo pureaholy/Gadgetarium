@@ -41,4 +41,5 @@ public class ProductResponse {
     private Long quantityOfProducts;
     private int disPercent;
     private String categoryName;
+    private Boolean inBasket;
 }
