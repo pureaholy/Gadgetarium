@@ -71,6 +71,7 @@ public class AuthService {
     public AuthenticationResponse register(RegisterRequest request) {
         User user = mapToEntity(request);
         Basket basket = new Basket();
+        basket.setUser(user);
         user.setBasket(basket);
         userRepository.save(user);
         return responseForRegister(user);

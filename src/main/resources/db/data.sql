@@ -25,12 +25,12 @@ VALUES (1, 53, '01-02-2023', 'CART');
 INSERT INTO delivery_men(id, last_name, name, phone_number)
 VALUES (1, 'Mamatbekova', 'Aidai', '+78956673387');
 
+INSERT INTO basket(id)
+VALUES (1);
+
 INSERT INTO users(email, first_name, last_name, password, role)
 VALUES ('admin@gmail.com', 'Admin', 'Adminov', '$2a$12$zUO1dmnQw.y5asgrJyiNj.TtPFZ3TWj6i5C0mRXy.Sx8wIJrw51j6', 'ADMIN'),
        ('user@gmail.com', 'User', 'Userov', '$2a$12$GUqbAtoXhNd8qQ1izXUQIu06x8SrLGMXGLv28r1KYsVNyWl/5.rNi', 'USER');
-
-INSERT INTO basket(id,user_id)
-VALUES (1,2);
 
 INSERT INTO products(id, appointment, brand,
                      capacity_battery, color, price,
@@ -39,11 +39,12 @@ INSERT INTO products(id, appointment, brand,
                      image, name, os,
                      ram, rom,
                      sim, weight,
+                     basket_id,
                       chosen_id,
                      discount_id,
                      news_id, order_list_id, promotion_id, category_id)
 VALUES (1, 'phone', 'ASUS', '128GB', 'RED', 45000, 'DWQ2', '01-02-2024',
-        '5.6MPX', 'YES', 'HJF5849JK39JSK', 'IPHONE', 'IOS', '57TU', '567JK', 'TELE2', '450GR', 1, 1, 1, 1, 1, 1);
+        '5.6MPX', 'YES', 'HJF5849JK39JSK', 'IPHONE', 'IOS', '57TU', '567JK', 'TELE2', '450GR', 1, 1, 1, 1, 1, 1, 1);
 
 INSERT INTO orders(id, count_of_product, order_status,
                    shipping, total_sum,
