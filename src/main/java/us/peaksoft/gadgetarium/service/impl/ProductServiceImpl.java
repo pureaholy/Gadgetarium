@@ -253,9 +253,9 @@ public class ProductServiceImpl implements ProductService {
             productResponse.setCurrentPrice(discountedPrice);
             productResponse.setDisPercent(product.getDiscount().getPercent());
         }
-        if(product.getBasket() != null){
+        if (product.getBasket() != null) {
             productResponse.setInBasket(true);
-        }else{
+        } else {
             productResponse.setInBasket(false);
         }
         return productResponse;

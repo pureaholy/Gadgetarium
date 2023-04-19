@@ -1,12 +1,14 @@
 package us.peaksoft.gadgetarium.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import us.peaksoft.gadgetarium.dto.*;
+import us.peaksoft.gadgetarium.dto.BasketResponse;
+import us.peaksoft.gadgetarium.dto.ProductRequest;
+import us.peaksoft.gadgetarium.dto.ProductResponse;
+import us.peaksoft.gadgetarium.dto.SimpleResponse;
 import us.peaksoft.gadgetarium.entity.Basket;
 import us.peaksoft.gadgetarium.entity.Product;
 import us.peaksoft.gadgetarium.repository.BasketRepository;
@@ -15,6 +17,7 @@ import us.peaksoft.gadgetarium.service.BasketService;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BasketServiceImpl implements BasketService {
@@ -43,7 +46,7 @@ public class BasketServiceImpl implements BasketService {
     public SimpleResponse removeProductFromBasket(Long id, ProductRequest productRequest) {
         Product product = productRepository.findById(id).get();
         SimpleResponse simpleResponse = new SimpleResponse();
-        if(productRequest.getBasketId() == null){
+        if (productRequest.getBasketId() == null) {
             product.setBasket(null);
             simpleResponse.setMessage("The product was successfully deleted from cart");
             simpleResponse.setHttpStatus(HttpStatus.OK);
@@ -63,7 +66,7 @@ public class BasketServiceImpl implements BasketService {
         return productResponses;
     }
 
-    private BasketResponse mapToResponse(Basket basket){
+    private BasketResponse mapToResponse(Basket basket) {
         BasketResponse basketResponse = new BasketResponse();
         basketResponse.setId(basket.getId());
         return basketResponse;
@@ -101,13 +104,11 @@ public class BasketServiceImpl implements BasketService {
             productResponse.setCurrentPrice(discountedPrice);
             productResponse.setDisPercent(product.getDiscount().getPercent());
         }
-        if(product.getBasket() != null){
+        if (product.getBasket() != null) {
             productResponse.setInBasket(true);
-        }else{
+        } else {
             productResponse.setInBasket(false);
         }
         return productResponse;
     }
-
-
 }
