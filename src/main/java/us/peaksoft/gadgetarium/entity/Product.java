@@ -94,6 +94,9 @@ public class Product {
     @Transient
     private int DisPercent;
 
+    @Column(name = "current_price")
+    private int currentPrice;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Feedback> feedbacks;
 }

@@ -68,6 +68,13 @@ public class ProductServiceImpl implements ProductService {
             Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
             product.setDiscount(discount);
             product.setDisPercent(discount.getPercent());
+            if (product.getDiscount().getId() != null) {
+                double disPer = (double) product.getDiscount().getPercent() / 100;
+                double disPrice = product.getPrice() * disPer;
+                int discountedPrice = (int) (product.getPrice() - disPrice);
+                product.setCurrentPrice(discountedPrice);
+                product.setDisPercent(product.getDiscount().getPercent());
+            }
         }
         productRepository.save(product);
         return mapToResponseForDescriptionAndSavingPrice(product);
@@ -243,13 +250,7 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
-        if (product.getDiscount().getId() != null) {
-            double disPer = (double) product.getDiscount().getPercent() / 100;
-            double disPrice = product.getPrice() * disPer;
-            int discountedPrice = (int) (product.getPrice() - disPrice);
-            productResponse.setCurrentPrice(discountedPrice);
-            productResponse.setDisPercent(product.getDiscount().getPercent());
-        }
+        productResponse.setCurrentPrice(product.getCurrentPrice());
         if (product.getBasket() != null) {
             productResponse.setInBasket(true);
         } else {
