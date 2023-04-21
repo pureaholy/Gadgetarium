@@ -12,8 +12,6 @@ import us.peaksoft.gadgetarium.dto.SimpleResponse;
 import us.peaksoft.gadgetarium.entity.Category;
 import us.peaksoft.gadgetarium.entity.Discount;
 import us.peaksoft.gadgetarium.entity.Product;
-import us.peaksoft.gadgetarium.enums.Brand;
-import us.peaksoft.gadgetarium.enums.Color;
 import us.peaksoft.gadgetarium.repository.CategoryRepository;
 import us.peaksoft.gadgetarium.repository.DiscountRepository;
 import us.peaksoft.gadgetarium.repository.ProductRepository;
