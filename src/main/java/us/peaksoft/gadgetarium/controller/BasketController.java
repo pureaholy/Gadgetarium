@@ -20,23 +20,23 @@ public class BasketController {
 
     private final BasketService basketService;
 
-    @PostMapping("save-product-to-cart/{id}")
+    @PostMapping("save-product/{id}")
     public ProductResponse saveProduct(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest) {
         return basketService.saveProductIntoBasket(id, productRequest);
     }
 
-    @PutMapping("remove-product-from-cart/{id}")
+    @PutMapping("remove-product/{id}")
     public SimpleResponse deleteProduct(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest) {
         return basketService.removeProductFromBasket(id, productRequest);
     }
 
 
-    @PutMapping("remove-all-product/{id}")
+    @PutMapping("remove-products/{id}")
     public SimpleResponse deleteAllProduct(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest){
         return basketService.removeAllProductFromBasket(id,productRequest);
     }
 
-    @GetMapping("products-of-cart/{id}")
+    @GetMapping("products/{id}")
     public List<ProductResponse> productsOfCart(@PathVariable(name = "id", required = false) Long id, @RequestParam(value = "page", required = false)
     int page, @RequestParam(name = "size", required = false) int size) {
         return basketService.getProductsByBasketId(id, page, size);
