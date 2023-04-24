@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/cart")
-@Tag(name = "BasketController", description = "API endpoints for managing products")
+@Tag(name = "BasketController", description = "API endpoints for managing Cart")
 @RequiredArgsConstructor
 
 public class BasketController {
