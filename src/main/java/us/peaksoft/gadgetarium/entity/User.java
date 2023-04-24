@@ -51,7 +51,6 @@ public class User implements UserDetails {
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
     @Transient
     private Long basketId;
 

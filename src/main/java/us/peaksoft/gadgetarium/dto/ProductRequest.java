@@ -35,6 +35,5 @@ public class ProductRequest {
     private Long categoryId;
     private Long discountId;
     private Long chosenId;
-
     private Long basketId;
 }
