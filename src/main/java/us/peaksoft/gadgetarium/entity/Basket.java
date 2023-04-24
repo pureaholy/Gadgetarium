@@ -22,6 +22,6 @@ public class Basket {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "basket")
     private List<Product> products;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "basket")
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
 }

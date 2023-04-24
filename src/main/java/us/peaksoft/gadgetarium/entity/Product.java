@@ -1,5 +1,6 @@
 package us.peaksoft.gadgetarium.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import us.peaksoft.gadgetarium.enums.Brand;
@@ -22,6 +23,9 @@ public class Product {
 
     private String name;
     private int price;
+
+    @Column(name = "current_price")
+    private int currentPrice;
 
     @Enumerated(EnumType.STRING)
     private Brand brand;
@@ -60,6 +64,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "basket_id")
     private Basket basket;
+
+    @Transient
+    Long basketId;
 
     @ManyToOne
     @JoinColumn(name = "news_id")

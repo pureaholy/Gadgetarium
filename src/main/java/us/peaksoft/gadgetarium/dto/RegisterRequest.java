@@ -27,5 +27,6 @@ public class RegisterRequest {
     private String password;
 
     private String passwordAdmit;
+    private Long basketId;
 
 }

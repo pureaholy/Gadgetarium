@@ -12,8 +12,6 @@ import us.peaksoft.gadgetarium.dto.SimpleResponse;
 import us.peaksoft.gadgetarium.entity.Category;
 import us.peaksoft.gadgetarium.entity.Discount;
 import us.peaksoft.gadgetarium.entity.Product;
-import us.peaksoft.gadgetarium.enums.Brand;
-import us.peaksoft.gadgetarium.enums.Color;
 import us.peaksoft.gadgetarium.repository.CategoryRepository;
 import us.peaksoft.gadgetarium.repository.DiscountRepository;
 import us.peaksoft.gadgetarium.repository.ProductRepository;
@@ -68,9 +66,16 @@ public class ProductServiceImpl implements ProductService {
             Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
             product.setDiscount(discount);
             product.setDisPercent(discount.getPercent());
+            if (product.getDiscount().getId() != null) {
+                double disPer = (double) product.getDiscount().getPercent() / 100;
+                double disPrice = product.getPrice() * disPer;
+                int discountedPrice = (int) (product.getPrice() - disPrice);
+                product.setCurrentPrice(discountedPrice);
+                product.setDisPercent(product.getDiscount().getPercent());
+            }
         }
         productRepository.save(product);
-        return mapToResponse(product);
+        return mapToResponseForDescriptionAndSavingPrice(product);
 
     }
 
@@ -185,9 +190,6 @@ public class ProductServiceImpl implements ProductService {
         if (productRequest.getDiscountId() != null) {
             Discount discount = discountRepository.findById(productRequest.getDiscountId()).get();
             product.setDiscount(discount);
-        } else {
-            Discount discount = new Discount();
-            product.setDiscount(discount);
         }
         return product;
     }
@@ -246,12 +248,11 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setQuantityOfProducts(productRepository.Quantity(product.getBrand(),
                 product.getColor(), product.getRam(),
                 product.getQuantityOfSim(), product.getPrice()));
-        if (product.getDiscount().getId() != null) {
-            double disPer = (double) product.getDiscount().getPercent() / 100;
-            double disPrice = product.getPrice() * disPer;
-            int discountedPrice = (int) (product.getPrice() - disPrice);
-            productResponse.setCurrentPrice(discountedPrice);
-            productResponse.setDisPercent(product.getDiscount().getPercent());
+        productResponse.setCurrentPrice(product.getCurrentPrice());
+        if (product.getBasket() != null) {
+            productResponse.setInBasket(true);
+        } else {
+            productResponse.setInBasket(false);
         }
         return productResponse;
     }
