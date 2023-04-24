@@ -20,19 +20,19 @@ public class BasketController {
 
     private final BasketService basketService;
 
-    @PostMapping("save-product/{id}")
+    @PostMapping("save-products/{id}")
     public ProductResponse saveProduct(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest) {
         return basketService.saveProductIntoBasket(id, productRequest);
     }
 
-    @PutMapping("remove-product/{id}")
+    @PutMapping("remove-products/{id}")
     public SimpleResponse deleteProduct(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest) {
         return basketService.removeProductFromBasket(id, productRequest);
     }
 
 
-    @PutMapping("remove-products/{id}")
-    public SimpleResponse deleteAllProduct(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest){
+    @PutMapping("remove-all-products/{basketId}")
+    public SimpleResponse deleteAllProduct(@PathVariable("basketId") Long id, @RequestBody ProductRequest productRequest){
         return basketService.removeAllProductFromBasket(id,productRequest);
     }
 
