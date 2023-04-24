@@ -1,17 +1,6 @@
 package us.peaksoft.gadgetarium.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -62,9 +51,12 @@ public class User implements UserDetails {
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "chosen_id")
     private Chosen chosen;
+
+    @Transient
+    private Long chosenId;
 
     @OneToOne
     @JoinColumn(name = "order_list_id")

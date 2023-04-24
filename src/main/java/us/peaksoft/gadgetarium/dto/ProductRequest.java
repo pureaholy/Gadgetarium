@@ -34,4 +34,6 @@ public class ProductRequest {
     private String description;
     private Long categoryId;
     private Long discountId;
+    private Long chosenId;
+
 }
