@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import us.peaksoft.gadgetarium.dto.BasketResponse;
+import us.peaksoft.gadgetarium.dto.OrderSumResponse;
 import us.peaksoft.gadgetarium.dto.ProductRequest;
 import us.peaksoft.gadgetarium.dto.ProductResponse;
 import us.peaksoft.gadgetarium.dto.SimpleResponse;
@@ -28,11 +29,25 @@ public class BasketServiceImpl implements BasketService {
     @Override
     public ProductResponse saveProductIntoBasket(Long id, ProductRequest productRequest) {
         Product product = productRepository.findById(id).get();
+        int totalSum = 0;
+        int currPrice = 0;
+        int disPrice = 0;
         if (productRequest.getBasketId() != null) {
             Basket basket = basketRepository.findById(productRequest.getBasketId()).get();
+            List<Product> products = basket.getProducts();
             product.setBasket(basket);
+            productRepository.save(product);
+            for (Product product1 : products) {
+                totalSum += product1.getPrice();
+                basket.setSum(totalSum);
+                currPrice += product1.getCurrentPrice();
+                disPrice = totalSum - currPrice;
+                basket.setDisPercentSum(disPrice);
+                basket.setEndSum(currPrice);
+            }
+            basket.setQuantityOfProducts(products.size());
+            basketRepository.save(basket);
         }
-        productRepository.save(product);
         return mapToResponseForSavingIntoBasket(product);
     }
 
@@ -43,15 +58,41 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public SimpleResponse removeProductFromBasket(Long id, ProductRequest productRequest) {
-        Product product = productRepository.findById(id).get();
+    public SimpleResponse removeProductFromBasket(Long productId, Long basketId, ProductRequest productRequest) {
+        Product product = productRepository.findById(productId).get();
+        Basket basket = basketRepository.findById(basketId).get();
+        List<Product> products = basket.getProducts();
         SimpleResponse simpleResponse = new SimpleResponse();
-        if (productRequest.getBasketId() == null) {
-            product.setBasket(null);
-            simpleResponse.setMessage("The product was successfully deleted from cart");
-            simpleResponse.setHttpStatus(HttpStatus.OK);
+        int minusSum = 0;
+        int minusEndSum = 0;
+        int discountedPrice = 0;
+        int count = 0;
+        for (Product product1 : products) {
+            if (product.getId() == product1.getId()) {
+                if(productRequest.getBasketId() == null) {
+                    product1.setBasket(null);
+                    productRepository.save(product1);
+                    minusSum = basket.getSum() - product1.getPrice();
+                    minusEndSum = basket.getEndSum() - product1.getCurrentPrice();
+                    discountedPrice = minusSum - minusEndSum;
+                    basket.setSum(minusSum);
+                    basket.setEndSum(minusEndSum);
+                    basket.setDisPercentSum(discountedPrice);
+                    count++;
+                    basket.setQuantityOfProducts(products.size() - count);
+                    simpleResponse.setMessage("The product was successfully deleted from cart");
+                    simpleResponse.setHttpStatus(HttpStatus.OK);
+                }
+            } else {
+                simpleResponse.setMessage("The product is not exists in cart");
+                simpleResponse.setHttpStatus(HttpStatus.NOT_FOUND);
+            }
         }
-        productRepository.save(product);
+        if(products.isEmpty()){
+            simpleResponse.setMessage("The cart is empty");
+            simpleResponse.setHttpStatus(HttpStatus.NOT_FOUND);
+        }
+        basketRepository.save(basket);
         return simpleResponse;
     }
 
@@ -69,11 +110,15 @@ public class BasketServiceImpl implements BasketService {
     @Override
     public SimpleResponse removeAllProductFromBasket(Long id, ProductRequest productRequest) {
         Basket basket = basketRepository.findById(id).get();
-        List<Product>products = basket.getProducts();
+        List<Product> products = basket.getProducts();
         SimpleResponse simpleResponse = new SimpleResponse();
         int count = 0;
-        for(Product product : products) {
-            if (product.getBasketId() == null){
+        for (Product product : products) {
+            if (productRequest.getBasketId() == null) {
+                basket.setQuantityOfProducts(0);
+                basket.setSum(0);
+                basket.setDisPercentSum(0);
+                basket.setEndSum(0);
                 product.setBasket(null);
                 count++;
                 simpleResponse.setMessage("Products were successfully deleted from cart. Count of products, that you've deleted: " + count);
@@ -81,7 +126,27 @@ public class BasketServiceImpl implements BasketService {
             }
             productRepository.save(product);
         }
+        if(products.isEmpty()){
+            simpleResponse.setMessage("The cart is empty");
+            simpleResponse.setHttpStatus(HttpStatus.NOT_FOUND);
+        }
+        basketRepository.save(basket);
         return simpleResponse;
+    }
+
+    @Override
+    public OrderSumResponse sumOfOrders(Long id) {
+        Basket basket = basketRepository.findById(id).get();
+        return mapToResponseForSumOfOrders(basket);
+    }
+
+    private OrderSumResponse mapToResponseForSumOfOrders(Basket basket) {
+        OrderSumResponse orderSumResponse = new OrderSumResponse();
+        orderSumResponse.setQuantityOfProducts(basket.getQuantityOfProducts());
+        orderSumResponse.setDisPercentSum(basket.getDisPercentSum());
+        orderSumResponse.setSum(basket.getSum());
+        orderSumResponse.setEndSum(basket.getEndSum());
+        return orderSumResponse;
     }
 
     private BasketResponse mapToResponse(Basket basket) {

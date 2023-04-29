@@ -1,8 +1,5 @@
 package us.peaksoft.gadgetarium.service;
-import us.peaksoft.gadgetarium.dto.BasketResponse;
-import us.peaksoft.gadgetarium.dto.ProductRequest;
-import us.peaksoft.gadgetarium.dto.ProductResponse;
-import us.peaksoft.gadgetarium.dto.SimpleResponse;
+import us.peaksoft.gadgetarium.dto.*;
 
 import java.util.List;
 
@@ -12,9 +9,11 @@ public interface BasketService {
 
     BasketResponse getById(Long id);
 
-    SimpleResponse removeProductFromBasket(Long id, ProductRequest productRequest);
+    SimpleResponse removeProductFromBasket(Long productId,Long basketId, ProductRequest productRequest);
 
     List<ProductResponse> getProductsByBasketId(Long id, int page, int size);
 
     SimpleResponse removeAllProductFromBasket(Long id, ProductRequest productRequest);
+
+    OrderSumResponse sumOfOrders(Long id);
 }

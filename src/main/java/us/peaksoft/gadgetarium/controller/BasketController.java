@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import us.peaksoft.gadgetarium.dto.*;
 import us.peaksoft.gadgetarium.service.BasketService;
 
-import java.time.format.DecimalStyle;
 import java.util.List;
 
 @RestController
@@ -32,10 +31,11 @@ public class BasketController {
         return basketService.saveProductIntoBasket(id, productRequest);
     }
 
-    @PutMapping("products/{id}")
+    @PutMapping("products/{productId}/{basketId}")
     @Operation(description = "Users and Admin can delete a Product from Cart")
-    public SimpleResponse deleteProduct(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest) {
-        return basketService.removeProductFromBasket(id, productRequest);
+    public SimpleResponse deleteProduct(@PathVariable("productId") Long id, @PathVariable("basketId") Long basketId,
+                                        @RequestBody ProductRequest productRequest) {
+        return basketService.removeProductFromBasket(id,basketId, productRequest);
     }
 
 
@@ -45,10 +45,17 @@ public class BasketController {
         return basketService.removeAllProductFromBasket(id,productRequest);
     }
 
-    @GetMapping("products/{id}")
+    @GetMapping("products/{basketId}")
     @Operation(description = "Users and Admin can see a List of Cart's Products")
-    public List<ProductResponse> productsOfCart(@PathVariable(name = "id", required = false) Long id, @RequestParam(value = "page", required = false)
+    public List<ProductResponse> productsOfCart(@PathVariable(name = "basketId", required = false) Long id, @RequestParam(value = "page", required = false)
     int page, @RequestParam(name = "size", required = false) int size) {
         return basketService.getProductsByBasketId(id, page, size);
+    }
+
+    @GetMapping("order-sum/{basketId}")
+    @Operation(description = "Users can see product's total sum, quantity of products," +
+            " the difference in the amounts and sum without discounts in one Basket, by basket's id")
+    public OrderSumResponse orderSum(@PathVariable("basketId") Long id){
+        return basketService.sumOfOrders(id);
     }
 }
