@@ -7,7 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import us.peaksoft.gadgetarium.dto.AuthenticationRequest;
 import us.peaksoft.gadgetarium.dto.AuthenticationResponse;
+import us.peaksoft.gadgetarium.entity.Basket;
 import us.peaksoft.gadgetarium.entity.User;
+import us.peaksoft.gadgetarium.entity.Wishlist;
 import us.peaksoft.gadgetarium.repository.UserRepository;
 import us.peaksoft.gadgetarium.dto.RegisterRequest;
 import us.peaksoft.gadgetarium.enums.Role;
@@ -63,9 +65,9 @@ public class AuthService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         User user = mapToEntity(request);
-        Chosen chosen = new Chosen();
-        chosen.setUser(user);
-        user.setChosen(chosen);
+        Wishlist wishlist = new Wishlist();
+        wishlist.setUser(user);
+        user.setWishlist(wishlist);
         Basket basket = new Basket();
         basket.setUser(user);
         user.setBasket(basket);
