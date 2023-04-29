@@ -55,8 +55,11 @@ public class User implements UserDetails {
     private Long basketId;
 
     @OneToOne
-    @JoinColumn(name = "chosen_id")
-    private Chosen chosen;
+    @JoinColumn(name = "wishlist_id")
+    private Wishlist wishlist;
+
+    @Transient
+    private Long chosenId;
 
     @OneToOne
     @JoinColumn(name = "order_list_id")

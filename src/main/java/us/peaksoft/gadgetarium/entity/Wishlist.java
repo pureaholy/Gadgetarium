@@ -13,15 +13,17 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "chosen")
-public class Chosen {
+@Table(name = "wishlist")
+public class Wishlist {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "chosen")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "wishlist")
     private List<Product> products;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "chosen")
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
+
 }

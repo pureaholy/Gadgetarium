@@ -1,6 +1,5 @@
 package us.peaksoft.gadgetarium.entity;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import us.peaksoft.gadgetarium.enums.Brand;
@@ -81,8 +80,11 @@ public class Product {
     private OrderList orderList;
 
     @ManyToOne
-    @JoinColumn(name = "chosen_id")
-    private Chosen chosen;
+    @JoinColumn(name = "wishlist_id")
+    private Wishlist wishlist;
+
+    @Transient
+    private Long chosenId;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "discount_id")
